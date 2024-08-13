@@ -6,4 +6,4 @@ interface Product {
     stock: number;
 }
 
-export default Product
+export default Product;
