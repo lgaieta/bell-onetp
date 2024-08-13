@@ -1,7 +1,7 @@
 import ProductRepository from "@/models/ProductRepository";
 import MockProductRepository from "@/services/MockProductRepository";
 
-export async function GET(request: Request) {
+export async function GET() {
     try {
         const productRepository: ProductRepository =
             new MockProductRepository();
