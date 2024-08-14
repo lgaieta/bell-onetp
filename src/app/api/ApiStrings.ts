@@ -8,7 +8,7 @@ const ApiStrings = {
     consoleProductFetchError: "Error fetching the product",
     consoleProductListFetchError: "Error fetching the product list",
     productIdKey: "id",
-    productNotsFoundMessage: "Product not found",
+    productNotFoundMessage: "Product not found",
     productCreationErrorMessage:
         "An error occurred while creating the product.",
     productFetchErrorMessage: "An error occurred while fetching the product.",
