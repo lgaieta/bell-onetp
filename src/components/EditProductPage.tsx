@@ -2,12 +2,12 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-function CreateProductPage() {
+function EditProductPage() {
     return (
         <form className="grid gap-4">
             <header className="flex justify-center py-16">
                 <h1 className="text-2xl font-bold sm:text-4xl">
-                    Cargar producto
+                    Editar producto
                 </h1>
             </header>
             <div className="grid gap-2">
@@ -42,7 +42,7 @@ function CreateProductPage() {
                 />
             </div>
             <div className="grid gap-2">
-                <Label htmlFor="text">Stock(opcional)</Label>
+                <Label htmlFor="text">Stock</Label>
                 <Input
                     id="stock"
                     name="stock"
@@ -51,9 +51,9 @@ function CreateProductPage() {
                     type="number"
                 />
             </div>
-            <Button> Cargar producto</Button>
+            <Button> Guardar producto</Button>
         </form>
     );
 }
 
-export default CreateProductPage;
+export default EditProductPage;

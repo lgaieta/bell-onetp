@@ -9,7 +9,9 @@ async function CartPage() {
     return (
         <main className="flex w-full min-h-screen flex-col gap-12 items-center py-16">
             <header>
-                <h1 className="text-xl font-bold">Carrito de compras</h1>
+                <h1 className="text-2xl font-bold sm:text-4xl">
+                    Carrito de compras
+                </h1>
             </header>
             <div className="flex w-full flex-col gap-y-10 px-4 max-w-sm sm:max-w-xl sm:flex-row sm:justify-between ">
                 <div className="flex flex-col rounded-md sm:w-1/3 ">
