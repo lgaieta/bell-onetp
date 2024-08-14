@@ -20,7 +20,7 @@ export async function PUT(request: Request) {
 
         return Response.json(requestJson);
     } catch (error) {
-        console.error(ApiStrings.consoleProductPostError, error);
+        console.error(ApiStrings.consoleProductPutError, error);
 
         if (error instanceof ZodError)
             return generateResponseError({
@@ -31,7 +31,7 @@ export async function PUT(request: Request) {
             return generateResponseError({ message: error.message });
 
         return generateResponseError({
-            message: ApiStrings.productCreationErrorMessage,
+            message: ApiStrings.productUpdateErrorMessage,
         });
     }
 }
