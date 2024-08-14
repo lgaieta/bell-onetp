@@ -8,6 +8,7 @@ interface ProductRepository {
         productId: Product["id"],
         newProduct: Product,
     ): Promise<Product | null>;
+    delete(id: Product["id"]): Promise<void>;
 }
 
 export default ProductRepository;

@@ -87,6 +87,8 @@ class MockProductRepository implements ProductRepository {
         return newProduct;
     }
 
+    async delete(id: Product["id"]) {}
+
     async create(product: Product): Promise<Product> {
         return product;
     }
