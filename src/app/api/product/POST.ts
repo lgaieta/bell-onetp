@@ -1,8 +1,8 @@
 import ApiStrings from "@/app/api/ApiStrings";
 import { generateResponseError } from "@/lib/utils";
-import { ProductSchema } from "@/models/Product";
 import ProductRepository from "@/models/ProductRepository";
 import MockProductRepository from "@/services/MockProductRepository";
+import { ProductSchema } from "@/services/ProductSchema";
 import { NextRequest } from "next/server";
 import { ZodError } from "zod";
 

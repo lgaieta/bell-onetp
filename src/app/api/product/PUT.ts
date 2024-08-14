@@ -1,9 +1,9 @@
 import ApiStrings from "@/app/api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
-import { ProductIdSchema, ProductSchema } from "@/models/Product";
 import ProductRepository from "@/models/ProductRepository";
 import MockProductRepository from "@/services/MockProductRepository";
+import { ProductIdSchema, ProductSchema } from "@/services/ProductSchema";
 import { ZodError } from "zod";
 
 export async function PUT(request: Request) {
