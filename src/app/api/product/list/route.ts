@@ -1,3 +1,5 @@
+import ApiStrings from "@/app/api/ApiStrings";
+import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";
 import MockProductRepository from "@/services/MockProductRepository";
 
@@ -8,14 +10,9 @@ export async function GET() {
         const list = await productRepository.getList();
         return Response.json(list);
     } catch (error) {
-        console.error("Error fetching the product list:", error);
-        return new Response(
-            JSON.stringify({
-                message: "An error occurred while fetching the product list.",
-            }),
-            {
-                status: 500,
-            },
-        );
+        console.error(ApiStrings.consoleProductListFetchError, error);
+        return generateResponseError({
+            message: ApiStrings.productListFetchErrorMessage,
+        });
     }
 }

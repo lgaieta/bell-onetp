@@ -1,40 +1,37 @@
 import ApiStrings from "@/app/api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
-import { ProductIdSchema } from "@/models/Product";
+import { ProductIdSchema, ProductSchema } from "@/models/Product";
 import ProductRepository from "@/models/ProductRepository";
 import MockProductRepository from "@/services/MockProductRepository";
-import { NextRequest } from "next/server";
 import { ZodError } from "zod";
 
-export async function GET(request: NextRequest) {
+export async function PUT(request: Request) {
     try {
-        const searchParams = request.nextUrl.searchParams;
-        const queryId = searchParams.get(ApiStrings.productIdKey);
+        const { id, ...requestJson } = await request.json();
 
-        const validatedId = ProductIdSchema.parse(queryId);
+        const validatedId = ProductIdSchema.parse(id);
+        const validatedProduct = ProductSchema.parse(requestJson);
 
         const productRepository: ProductRepository =
             new MockProductRepository();
-        const product = await productRepository.getById(validatedId);
 
-        if (!product)
-            throw new NotFoundError(ApiStrings.productNotFoundMessage);
+        await productRepository.update(validatedId, validatedProduct);
 
-        return Response.json(product);
+        return Response.json(requestJson);
     } catch (error) {
+        console.error(ApiStrings.consoleProductPutError, error);
+
         if (error instanceof ZodError)
             return generateResponseError({
-                message: ApiStrings.invalidIdMessage,
+                message: ApiStrings.invalidFieldsMessage,
             });
 
         if (error instanceof NotFoundError)
             return generateResponseError({ message: error.message });
 
-        console.error(ApiStrings.consoleProductFetchError, error);
-
         return generateResponseError({
-            message: ApiStrings.productFetchErrorMessage,
+            message: ApiStrings.productUpdateErrorMessage,
         });
     }
 }
