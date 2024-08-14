@@ -1,5 +1,4 @@
 import ProductRepository from "@/models/ProductRepository";
-
 import MockProductRepository from "@/services/MockProductRepository";
 
 async function ProductsPage() {
