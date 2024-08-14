@@ -5,6 +5,7 @@ import {
     CarouselItem,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 import ProductRepository from "@/models/ProductRepository";
 import MockProductRepository from "@/services/MockProductRepository";
@@ -14,7 +15,7 @@ async function HomePage() {
     const list = await productRepository.getList();
     return (
         <main className="flex flex-col justify-center w-full ">
-            <div className=" bg-red-500">
+            <div>
                 <Image
                     src="/stock.jpeg"
                     width={700}
@@ -32,8 +33,10 @@ async function HomePage() {
                             className="basis-1/2 sm:basis-1/3 lg:basis-1/5"
                         >
                             <Card className="p-1">
-                                <CardContent className="flex gap-x-10 aspect-square items-center justify-center p-2">
-                                    {item.name}
+                                <CardContent className="flex gap-x-10 aspect-square items-center text-center justify-center p-2">
+                                    <Link key="products" href="/">
+                                        {item.name}
+                                    </Link>
                                 </CardContent>
                             </Card>
                         </CarouselItem>

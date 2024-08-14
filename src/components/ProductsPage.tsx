@@ -1,5 +1,18 @@
 import ProductRepository from "@/models/ProductRepository";
 import MockProductRepository from "@/services/MockProductRepository";
+import { IoAdd } from "react-icons/io5";
+
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 async function ProductsPage() {
     const productRepository: ProductRepository = new MockProductRepository();
@@ -14,12 +27,32 @@ async function ProductsPage() {
                 {list.map((item) => (
                     <div
                         key={item.id}
-                        className="flex flex-row justify-between items-center p-6 rounded-lg bg-slate-200 font-semibold  "
+                        className="flex flex-row justify-between items-center p-6 rounded-lg bg-neutral-100 font-semibold  "
                     >
                         {item.name}
-                        <button className=" rounded-lg px-2 font-medium text-white bg-red-500  hover:bg-red-600 ">
-                            +
-                        </button>
+                        <AlertDialog>
+                            <AlertDialogTrigger>
+                                <div className=" rounded-md p-1  font-medium text-white bg-red-500  hover:bg-red-600 ">
+                                    <IoAdd />
+                                </div>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                        ¿Quieres agregar este producto al
+                                        carrito?
+                                    </AlertDialogTitle>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>
+                                        Cancel
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction>
+                                        Continue
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
                     </div>
                 ))}
             </div>
