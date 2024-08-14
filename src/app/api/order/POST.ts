@@ -1,6 +1,7 @@
 import ApiStrings from "@/app/api/ApiStrings";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
+import OrderState from "@/models/OrderState";
 import MockOrderRepository from "@/services/MockOrderRepository";
 import { OrderSchema } from "@/services/OrderSchema";
 import { NextRequest } from "next/server";
@@ -11,7 +12,10 @@ export async function POST(request: NextRequest) {
         const requestJson = await request.json();
         const orderRepository: OrderRepository = new MockOrderRepository();
 
-        const validatedOrder = OrderSchema.parse(requestJson);
+        const validatedOrder = OrderSchema.parse({
+            ...requestJson,
+            operationState: OrderState.Pending,
+        });
         await orderRepository.create(validatedOrder);
 
         return Response.json(validatedOrder);
