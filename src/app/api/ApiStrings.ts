@@ -6,6 +6,7 @@ const ApiStrings = {
     consoleProductListFetchError: "Error fetching the product list",
     invalidFieldsMessage: "One or more fields are not valid.",
     invalidIdMessage: "Id is not valid.",
+    productIdKey: "id",
     productNotFoundMessage: "Product not found",
     productCreationErrorMessage:
         "An error occurred while creating the product.",
