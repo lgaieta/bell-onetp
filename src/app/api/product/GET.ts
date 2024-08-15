@@ -1,9 +1,9 @@
 import ApiStrings from "@/app/api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
-import { ProductIdSchema } from "@/models/Product";
 import ProductRepository from "@/models/ProductRepository";
 import MockProductRepository from "@/services/MockProductRepository";
+import { ProductIdSchema } from "@/services/ProductSchema";
 import { NextRequest } from "next/server";
 import { ZodError } from "zod";
 

@@ -17,9 +17,16 @@ const ApiStrings = {
     productDeleteErrorMessage: "An error occurred while deleting the product.",
     productUpdateErrorMessage: "An error occurred while updating the product.",
 
+    // User
+    userUsernameKey: "username",
+
     // Order
     consoleOrderPostError: "Error creating the order",
+    consoleOrderFetchError: "Error fetching the order",
+    orderIdKey: "userId",
+    orderNotFoundMessage: "Order not found",
     orderCreationErrorMessage: "An error occurred while creating the order.",
+    orderFetchErrorMessage: "An error occurred while fetching the order.",
 };
 
 export default ApiStrings;
