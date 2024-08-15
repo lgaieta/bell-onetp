@@ -80,10 +80,7 @@ const products: Product[] = [
 ];
 
 class MockProductRepository implements ProductRepository {
-    async update(
-        productId: Product["id"],
-        newProduct: Product,
-    ): Promise<Product> {
+    async update(newProduct: Product): Promise<Product> {
         return newProduct;
     }
 

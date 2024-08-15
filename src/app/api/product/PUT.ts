@@ -3,20 +3,19 @@ import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";
 import MockProductRepository from "@/services/MockProductRepository";
-import { ProductIdSchema, ProductSchema } from "@/services/ProductSchema";
+import { ProductSchema } from "@/services/ProductSchema";
 import { ZodError } from "zod";
 
 export async function PUT(request: Request) {
     try {
-        const { id, ...requestJson } = await request.json();
+        const requestJson = await request.json();
 
-        const validatedId = ProductIdSchema.parse(id);
         const validatedProduct = ProductSchema.parse(requestJson);
 
         const productRepository: ProductRepository =
             new MockProductRepository();
 
-        await productRepository.update(validatedId, validatedProduct);
+        await productRepository.update(validatedProduct);
 
         return Response.json(requestJson);
     } catch (error) {
