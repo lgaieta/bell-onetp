@@ -2,8 +2,10 @@ import { z } from "zod";
 import OrderState from "@/models/OrderState";
 import { UserUsernameSchema } from "@/services/UserSchema";
 
+export const OrderIdSchema = z.number().int().positive();
+
 export const OrderSchema = z.object({
-    id: z.number().int().positive(),
+    id: OrderIdSchema,
     username: UserUsernameSchema,
     totalPrice: z.number().positive(),
     operationState: z.nativeEnum(OrderState),

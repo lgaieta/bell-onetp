@@ -3,6 +3,7 @@ import User from "@/models/User";
 
 interface OrderRepository {
     create(order: Order): Promise<Order>;
+    delete(id: Order["id"]): Promise<void>
     getByUsername(username: User["username"]): Promise<Order[]>;
 }
 

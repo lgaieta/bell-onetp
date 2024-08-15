@@ -40,6 +40,12 @@ class MockOrderRepository implements OrderRepository {
             throw new NotFoundError(ApiStrings.orderNotFoundMessage);
         return order;
     }
+
+    async delete(id: Order["id"]): Promise<void> {
+        const order = this.orders.find((order) => order.id === id);
+        if (order === undefined)
+            throw new NotFoundError(ApiStrings.orderNotFoundMessage);
+    }
 }
 
 export default MockOrderRepository;
