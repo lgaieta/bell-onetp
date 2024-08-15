@@ -32,6 +32,10 @@ class MockOrderRepository implements OrderRepository {
         return order;
     }
 
+    async update(newOrder: Order): Promise<Order> {
+        return newOrder;
+    }
+
     async getByUsername(username: User["username"]): Promise<Order[]> {
         const order = this.orders.filter(
             (order) => order.username === username,

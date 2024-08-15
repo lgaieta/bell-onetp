@@ -23,11 +23,13 @@ const ApiStrings = {
     // Order
     consoleOrderPostError: "Error creating the order",
     consoleOrderFetchError: "Error fetching the order",
+    consoleOrderPutError: "Error updating the order",
     consoleOrderDeleteError: "Error deleting the order",
-    orderIdKey: "userId",
+    orderIdKey: "id",
     orderNotFoundMessage: "Order not found",
     orderCreationErrorMessage: "An error occurred while creating the order.",
     orderFetchErrorMessage: "An error occurred while fetching the order.",
+    orderUpdateErrorMessage: "An error occurred while updating the order.",
     orderDeleteErrorMessage: "An error occurred while deleting the order.",
 };
 
