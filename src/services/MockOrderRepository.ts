@@ -1,3 +1,5 @@
+import ApiStrings from "@/app/api/ApiStrings";
+import NotFoundError from "@/lib/NotFoundError";
 import Order from "@/models/Order";
 import OrderRepository from "@/models/OrderRepository";
 import OrderState from "@/models/OrderState";
@@ -34,6 +36,8 @@ class MockOrderRepository implements OrderRepository {
         const order = this.orders.filter(
             (order) => order.username === username,
         );
+        if (order.length === 0)
+            throw new NotFoundError(ApiStrings.orderNotFoundMessage);
         return order;
     }
 }
