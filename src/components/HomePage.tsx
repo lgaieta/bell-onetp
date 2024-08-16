@@ -7,12 +7,13 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 
-import ProductRepository from "@/models/ProductRepository";
-import MockProductRepository from "@/services/MockProductRepository";
+import Product from "@/models/Product";
 
-async function HomePage() {
-    const productRepository: ProductRepository = new MockProductRepository();
-    const list = await productRepository.getList();
+type HomePageProps = {
+    products: Product[];
+};
+
+async function HomePage(props: HomePageProps) {
     return (
         <main className="flex flex-col justify-center w-full ">
             <div>
@@ -27,14 +28,14 @@ async function HomePage() {
             </div>
             <Carousel className="w-full p-4">
                 <CarouselContent>
-                    {list.map((item) => (
+                    {props.products.map((item) => (
                         <CarouselItem
                             key={item.id}
                             className="basis-1/2 sm:basis-1/3 lg:basis-1/5"
                         >
                             <Card className="p-1">
                                 <CardContent className="flex gap-x-10 aspect-square items-center text-center justify-center p-2">
-                                    <Link key="products" href="/">
+                                    <Link key="products" href="/productos">
                                         {item.name}
                                     </Link>
                                 </CardContent>

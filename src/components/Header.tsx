@@ -10,22 +10,10 @@ function Header() {
             </Link>
             <div className="flex gap-4">
                 <Link
-                    href="/productos/pendientes"
-                    className="text-sm text-white font-bold "
+                    href="/pedidos/pendientes"
+                    className="text-sm text-white font-bold py-1 px-2 rounded-sm transition delay-100 hover:bg-white hover:text-black "
                 >
                     Pedidos pendientes
-                </Link>
-                <Link
-                    href="/productos/pendientes/editar"
-                    className="text-sm text-white font-bold "
-                >
-                    Modificar pedidos
-                </Link>
-                <Link
-                    href="/productos/pendientes/eliminar"
-                    className="text-sm text-white font-bold "
-                >
-                    Borrar pedidos
                 </Link>
             </div>
             <div className="flex gap-x-2">
