@@ -4,7 +4,7 @@ let pool: Pool | undefined = undefined;
 
 class MySQLPool {
     static get() {
-        if (pool !== undefined) return pool;
+        if (pool) return pool;
 
         pool = mysql.createPool({
             host: process.env.DB_HOST || "localhost",
