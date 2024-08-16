@@ -1,12 +1,12 @@
 import ApiStrings from "@/app/api/ApiStrings";
 import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";
-import MockProductRepository from "@/services/MockProductRepository";
+import MySQLProductRepository from "@/services/MySQLProductRepository";
 
 export async function GET() {
     try {
         const productRepository: ProductRepository =
-            new MockProductRepository();
+            new MySQLProductRepository();
         const list = await productRepository.getList();
         return Response.json(list);
     } catch (error) {

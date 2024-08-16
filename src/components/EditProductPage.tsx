@@ -8,8 +8,8 @@ export type EditProductPageProps = {
     formAction: () => void;
 };
 
-function EditProductPage(props: EditProductPageProps) {\
-    const {product} = props
+async function EditProductPage(props: EditProductPageProps) {
+    const { product } = props;
 
     return (
         <form className="grid gap-4">

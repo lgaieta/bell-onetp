@@ -2,7 +2,7 @@ import ApiStrings from "@/app/api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";
-import MockProductRepository from "@/services/MockProductRepository";
+import MySQLProductRepository from "@/services/MySQLProductRepository";
 import { ProductIdSchema } from "@/services/ProductSchema";
 import { NextRequest } from "next/server";
 import { ZodError } from "zod";
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
         const validatedId = ProductIdSchema.parse(queryId);
 
         const productRepository: ProductRepository =
-            new MockProductRepository();
+            new MySQLProductRepository();
         const product = await productRepository.getById(validatedId);
 
         if (!product)

@@ -1,7 +1,7 @@
 import ApiStrings from "@/app/api/ApiStrings";
 import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";
-import MockProductRepository from "@/services/MockProductRepository";
+import MySQLProductRepository from "@/services/MySQLProductRepository";
 import { ProductSchema } from "@/services/ProductSchema";
 import { NextRequest } from "next/server";
 import { ZodError } from "zod";
@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     try {
         const requestJson = await request.json();
         const productRepository: ProductRepository =
-            new MockProductRepository();
+            new MySQLProductRepository();
         const validatedProduct = ProductSchema.parse(requestJson);
         await productRepository.create(validatedProduct);
 

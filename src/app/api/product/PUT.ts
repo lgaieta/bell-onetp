@@ -2,7 +2,7 @@ import ApiStrings from "@/app/api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";
-import MockProductRepository from "@/services/MockProductRepository";
+import MySQLProductRepository from "@/services/MySQLProductRepository";
 import { ProductSchema } from "@/services/ProductSchema";
 import { ZodError } from "zod";
 
@@ -13,7 +13,7 @@ export async function PUT(request: Request) {
         const validatedProduct = ProductSchema.parse(requestJson);
 
         const productRepository: ProductRepository =
-            new MockProductRepository();
+            new MySQLProductRepository();
 
         await productRepository.update(validatedProduct);
 

@@ -1,5 +1,3 @@
-import ProductRepository from "@/models/ProductRepository";
-import MockProductRepository from "@/services/MockProductRepository";
 import { IoAdd } from "react-icons/io5";
 
 import {
@@ -13,18 +11,20 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import Product from "@/models/Product";
 
-async function ProductsPage() {
-    const productRepository: ProductRepository = new MockProductRepository();
-    const list = await productRepository.getList();
+type ProductsPageProps = {
+    products: Product[];
+};
 
+async function ProductsPage(props: ProductsPageProps) {
     return (
         <main className="flex w-full min-h-screen flex-col gap-12 items-center py-16">
             <header>
                 <h1 className="text-2xl font-bold sm:text-4xl">Productos</h1>
             </header>
             <div className="flex flex-col w-full gap-6 max-w-sm sm:max-w-xl">
-                {list.map((item) => (
+                {props.products.map((item) => (
                     <div
                         key={item.id}
                         className="flex flex-row justify-between items-center p-6 rounded-lg bg-neutral-100 font-semibold  "

@@ -2,7 +2,7 @@ import ApiStrings from "@/app/api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";
-import MockProductRepository from "@/services/MockProductRepository";
+import MySQLProductRepository from "@/services/MySQLProductRepository";
 import { ProductIdSchema } from "@/services/ProductSchema";
 import { ZodError } from "zod";
 
@@ -12,7 +12,7 @@ export async function DELETE(request: Request) {
 
         const validatedId = ProductIdSchema.parse(id);
         const productRepository: ProductRepository =
-            new MockProductRepository();
+            new MySQLProductRepository();
 
         await productRepository.delete(validatedId);
 
