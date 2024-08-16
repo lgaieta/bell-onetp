@@ -1,6 +1,5 @@
-import { Badge } from "@/components/ui/badge";
-
 import Product from "@/models/Product";
+import Link from "next/link";
 
 type PendingPageProps = {
     products: Product[];
@@ -21,15 +20,15 @@ async function PendingOrdersPage(props: PendingPageProps) {
                             key={item.id}
                             className="flex flex-col justify-between p-6 rounded-lg bg-neutral-100 font-semibold  sm:text-sm sm:p-4 sm:flex-row "
                         >
+                            <Link
+                                href="/pedidos/pendientes/admin/orden-pendiente"
+                                className="transition delay-100  hover:text-gray-500"
+                            >
+                                <p>{item.name}</p>
+                            </Link>
                             <p>{item.name}</p>
                             <div className="flex flex-col gap-4 sm:flex-row">
                                 <p>{item.price} $</p>
-                                <Badge
-                                    variant="outline"
-                                    className="bg-green-500"
-                                >
-                                    <p>Sin entregar</p>
-                                </Badge>
                             </div>
                         </li>
                     ))}

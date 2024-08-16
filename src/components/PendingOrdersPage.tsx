@@ -15,6 +15,7 @@ async function PendingOrdersPage(props: PendingPageProps) {
                     Pedidos Pendientes
                 </h1>
             </header>
+
             <div className="flex w-full flex-col gap-y-10 p-4 rounded-md max-w-sm sm:max-w-xl sm:flex-row sm:justify-between ">
                 <ul className="flex flex-col w-full gap-6 sm:max-w-xl ">
                     {props.products.map((item) => (
@@ -27,25 +28,26 @@ async function PendingOrdersPage(props: PendingPageProps) {
                                 className="transition delay-100  hover:text-gray-500"
                             >
                                 <p>{item.name}</p>
-                                <div className="flex flex-col gap-4 sm:flex-row">
-                                    <p>{item.price} $</p>
-
-                                    <div className="flex gap-2">
-                                        <Link
-                                            href="/pedidos/pendientes/editar"
-                                            className="transition delay-100  hover:text-gray-500"
-                                        >
-                                            <MdModeEdit />
-                                        </Link>
-                                        <Link
-                                            href="/pedidos/pendientes/eliminar"
-                                            className="text-red-500 transition delay-100  hover:text-red-600"
-                                        >
-                                            <MdDelete />
-                                        </Link>
-                                    </div>
-                                </div>
                             </Link>
+
+                            <div className="flex flex-col gap-4 sm:flex-row">
+                                <p>{item.price} $</p>
+
+                                <div className="flex gap-2">
+                                    <Link
+                                        href="/pedidos/pendientes/admin/editar"
+                                        className="transition delay-100  hover:text-gray-500"
+                                    >
+                                        <MdModeEdit />
+                                    </Link>
+                                    <Link
+                                        href="/pedidos/pendientes/admin/eliminar"
+                                        className="text-red-500 transition delay-100  hover:text-red-600"
+                                    >
+                                        <MdDelete />
+                                    </Link>
+                                </div>
+                            </div>
                         </li>
                     ))}
                 </ul>
