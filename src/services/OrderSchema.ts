@@ -10,7 +10,10 @@ export const OrderSchema = z.object({
     totalPrice: z.number().positive(),
     operationState: z.nativeEnum(OrderState),
     creationTime: z.coerce.date(),
-    products: z.array(z.number().int()).nonempty(),
+    products: z.record(
+        z.coerce.number().int().positive(),
+        z.number().int().nonnegative(),
+    ),
 });
 
 export default OrderSchema;

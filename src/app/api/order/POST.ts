@@ -3,6 +3,7 @@ import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
 import OrderState from "@/models/OrderState";
 import MockOrderRepository from "@/services/MockOrderRepository";
+import MySQLOrderRepository from "@/services/MySQLOrderRepository";
 import { OrderSchema } from "@/services/OrderSchema";
 import { NextRequest } from "next/server";
 import { ZodError } from "zod";
@@ -10,7 +11,7 @@ import { ZodError } from "zod";
 export async function POST(request: NextRequest) {
     try {
         const requestJson = await request.json();
-        const orderRepository: OrderRepository = new MockOrderRepository();
+        const orderRepository: OrderRepository = new MySQLOrderRepository();
 
         const validatedOrder = OrderSchema.parse({
             ...requestJson,

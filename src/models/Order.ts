@@ -8,7 +8,7 @@ interface Order {
     totalPrice: number;
     operationState: OrderState;
     creationTime: Date;
-    products: { [index:Product["id"]]: number };
+    products: { [index: Product["id"]]: number };
 }
 
 export default Order;
