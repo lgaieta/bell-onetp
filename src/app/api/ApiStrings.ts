@@ -27,6 +27,7 @@ const ApiStrings = {
     consoleOrderDeleteError: "Error deleting the order",
     orderIdKey: "id",
     orderNotFoundMessage: "Order not found",
+    orderAlreadyExists: "Order already exists",
     orderCreationErrorMessage: "An error occurred while creating the order.",
     orderFetchErrorMessage: "An error occurred while fetching the order.",
     orderUpdateErrorMessage: "An error occurred while updating the order.",
