@@ -1,15 +1,33 @@
 import EditProductPage from "@/components/EditProductPage";
 import ProductRepository from "@/models/ProductRepository";
-import MockProductRepository from "@/services/MockProductRepository";
-import { mysqlPool } from "@/services/MySQLPool";
-import { ProductIdSchema } from "@/services/ProductSchema";
+import MySQLProductRepository from "@/services/MySQLProductRepository";
+import { ProductIdSchema, ProductSchema } from "@/services/ProductSchema";
 
 export default async function Page({ params }: { params: { id: string } }) {
-    console.log(await mysqlPool.query("DESCRIBE product"));
     const validatedId = ProductIdSchema.parse(params.id);
 
-    const productRepository: ProductRepository = new MockProductRepository();
+    const productRepository: ProductRepository = new MySQLProductRepository();
     const product = await productRepository.getById(validatedId);
 
-    return <EditProductPage product={product} formAction={() => {}} />;
+    async function formAction(formData: FormData) {
+        "use server";
+        const data = Object.fromEntries(formData);
+
+        console.log(data);
+
+        const validatedProduct = ProductSchema.parse({
+            id: validatedId,
+            name: data.name,
+            description: data.description,
+            price: +data.price,
+            stock: +data.stock,
+        });
+
+        const productRepository: ProductRepository =
+            new MySQLProductRepository();
+
+        await productRepository.update(validatedProduct);
+    }
+
+    return <EditProductPage product={product} formAction={formAction} />;
 }
