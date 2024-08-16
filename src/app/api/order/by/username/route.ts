@@ -3,19 +3,19 @@ import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
 import MySQLOrderRepository from "@/services/MySQLOrderRepository";
-import { OrderIdSchema } from "@/services/OrderSchema";
+import { UserUsernameSchema } from "@/services/UserSchema";
 import { NextRequest } from "next/server";
 import { ZodError } from "zod";
 
 export async function GET(request: NextRequest) {
     try {
         const searchParams = request.nextUrl.searchParams;
-        const queryId = searchParams.get(ApiStrings.orderIdKey);
+        const queryUsername = searchParams.get(ApiStrings.userUsernameKey);
 
-        const validatedId = OrderIdSchema.parse(queryId);
+        const validatedUsername = UserUsernameSchema.parse(queryUsername);
 
         const orderRepository: OrderRepository = new MySQLOrderRepository();
-        const order = await orderRepository.getById(validatedId);
+        const order = await orderRepository.getByUsername(validatedUsername);
 
         return Response.json(order);
     } catch (error) {
