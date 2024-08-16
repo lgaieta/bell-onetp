@@ -2,17 +2,17 @@ import ApiStrings from "@/app/api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
-import MockOrderRepository from "@/services/MockOrderRepository";
 import { OrderIdSchema } from "@/services/OrderSchema";
 import { ZodError } from "zod";
 import { NextRequest } from "next/server";
+import MySQLOrderRepository from "@/services/MySQLOrderRepository";
 
 export async function DELETE(request: NextRequest) {
     try {
         const { id } = await request.json();
 
         const validatedUserId = OrderIdSchema.parse(id);
-        const orderRepository: OrderRepository = new MockOrderRepository();
+        const orderRepository: OrderRepository = new MySQLOrderRepository();
 
         await orderRepository.delete(validatedUserId);
 
