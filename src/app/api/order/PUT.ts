@@ -2,10 +2,10 @@ import ApiStrings from "@/app/api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
-import MockOrderRepository from "@/services/MockOrderRepository";
-import { OrderIdSchema, OrderSchema } from "@/services/OrderSchema";
+import { OrderSchema } from "@/services/OrderSchema";
 import { ZodError } from "zod";
 import { NextRequest } from "next/server";
+import MySQLOrderRepository from "@/services/MySQLOrderRepository";
 
 export async function PUT(request: NextRequest) {
     try {
@@ -13,7 +13,7 @@ export async function PUT(request: NextRequest) {
 
         const validatedOrder = OrderSchema.parse(requestJson);
 
-        const orderRepository: OrderRepository = new MockOrderRepository();
+        const orderRepository: OrderRepository = new MySQLOrderRepository();
 
         await orderRepository.update(validatedOrder);
 
