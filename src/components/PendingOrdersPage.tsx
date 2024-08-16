@@ -1,5 +1,8 @@
 import ProductRepository from "@/models/ProductRepository";
 import MockProductRepository from "@/services/MockProductRepository";
+import Link from "next/link";
+import { MdModeEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
 async function PendingOrdersPage() {
     const productRepository: ProductRepository = new MockProductRepository();
@@ -12,7 +15,7 @@ async function PendingOrdersPage() {
                     Productos Pendientes
                 </h1>
             </header>
-            <div className="flex w-full flex-col gap-y-10 p-4 bg-neutral-100 max-w-sm sm:max-w-xl sm:flex-row sm:justify-between ">
+            <div className="flex w-full flex-col gap-y-10 p-4 bg-neutral-100 rounded-md max-w-sm sm:max-w-xl sm:flex-row sm:justify-between ">
                 <ul className="flex flex-col w-full gap-6 sm:max-w-xl ">
                     {list.map((item) => (
                         <li
@@ -20,9 +23,23 @@ async function PendingOrdersPage() {
                             className="flex flex-col justify-between p-6 rounded-lg  font-semibold  sm:text-sm sm:p-4 sm:flex-row "
                         >
                             <p>{item.name}</p>
-                            <div className="flex gap-3">
+                            <div className="flex gap-4">
                                 <p>{item.price} $</p>
                                 <p>ejemplo@gmail.com</p>
+                                <div className="flex gap-2">
+                                    <Link
+                                        href="/"
+                                        className="transition delay-100  hover:text-gray-500"
+                                    >
+                                        <MdModeEdit />
+                                    </Link>
+                                    <Link
+                                        href="/"
+                                        className="text-red-500 transition delay-100  hover:text-red-600"
+                                    >
+                                        <MdDelete />
+                                    </Link>
+                                </div>
                             </div>
                         </li>
                     ))}
