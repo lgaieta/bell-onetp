@@ -13,8 +13,6 @@ export default async function Page({ params }: { params: { id: string } }) {
         "use server";
         const data = Object.fromEntries(formData);
 
-        console.log(data);
-
         const validatedProduct = ProductSchema.parse({
             id: validatedId,
             name: data.name,
