@@ -1,8 +1,16 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Product from "@/models/Product";
 
-function EditProductPage() {
+export type EditProductPageProps = {
+    product: Product;
+    formAction: () => void;
+};
+
+function EditProductPage(props: EditProductPageProps) {\
+    const {product} = props
+
     return (
         <form className="grid gap-4">
             <header className="flex justify-center py-16">
@@ -18,6 +26,7 @@ function EditProductPage() {
                     placeholder="producto"
                     required
                     type="text"
+                    defaultValue={product.name}
                 />
             </div>
             <div className="grid gap-2">

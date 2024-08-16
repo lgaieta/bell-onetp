@@ -1,3 +1,5 @@
+import ApiStrings from "@/app/api/ApiStrings";
+import NotFoundError from "@/lib/NotFoundError";
 import Product from "@/models/Product";
 import ProductRepository from "@/models/ProductRepository";
 
@@ -95,9 +97,12 @@ class MockProductRepository implements ProductRepository {
         return products;
     }
 
-    async getById(id: number): Promise<Product | null> {
+    async getById(id: number): Promise<Product> {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        return products.find((product) => product.id === id) || null;
+        const product = products.find((product) => product.id === id);
+        if (!product)
+            throw new NotFoundError(ApiStrings.productNotFoundMessage);
+        return product;
     }
 }
 
