@@ -8,6 +8,26 @@ function Header() {
             <Link href="/" className="text-lg text-white font-bold ">
                 bell
             </Link>
+            <div className="flex gap-4">
+                <Link
+                    href="/productos/pendientes"
+                    className="text-sm text-white font-bold "
+                >
+                    Pedidos pendientes
+                </Link>
+                <Link
+                    href="/productos/pendientes/editar"
+                    className="text-sm text-white font-bold "
+                >
+                    Modificar pedidos
+                </Link>
+                <Link
+                    href="/productos/pendientes/eliminar"
+                    className="text-sm text-white font-bold "
+                >
+                    Borrar pedidos
+                </Link>
+            </div>
             <div className="flex gap-x-2">
                 <Link
                     href="/carrito"
