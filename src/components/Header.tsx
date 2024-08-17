@@ -8,7 +8,7 @@ import { MdShoppingCart } from "react-icons/md";
 const links = [
     ["/productos", "Productos"],
     ["/", "Sobre nosotros"],
-    ["/pedidos/pendientes", "Mis compras"],
+    ["/compras", "Mis compras"],
 ];
 
 function Header() {

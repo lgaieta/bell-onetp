@@ -21,7 +21,7 @@ interface DBOrder extends RowDataPacket {
 }
 
 interface DBOrderHasProduct extends RowDataPacket {
-    order_idorder: number;
+    orders_idorder: number;
     product_idproduct: number;
     amount_prod: number;
 }
@@ -45,7 +45,7 @@ class MySQLOrderRepository implements OrderRepository {
         );
 
         const relSql =
-            "INSERT INTO order_has_product (order_idorder, product_idproduct, amount_prod) VALUES " +
+            "INSERT INTO orders_has_product (orders_idorder, product_idproduct, amount_prod) VALUES " +
             relationshipValues.join(",");
         await MySQLPool.get().query<ResultSetHeader>(relSql);
         return { ...order, id: result.insertId };
@@ -74,9 +74,9 @@ class MySQLOrderRepository implements OrderRepository {
         );
 
         const relSql =
-            "INSERT INTO order_has_product (order_idorder, product_idproduct, amount_prod) VALUES " +
+            "INSERT INTO orders_has_product (orders_idorder, product_idproduct, amount_prod) VALUES " +
             relationshipValues.join(",") +
-            " ON DUPLICATE KEY UPDATE order_idorder=VALUES(order_idorder), product_idproduct = VALUES(product_idproduct), amount_prod = VALUES(amount_prod)";
+            " ON DUPLICATE KEY UPDATE orders_idorder=VALUES(orders_idorder), product_idproduct = VALUES(product_idproduct), amount_prod = VALUES(amount_prod)";
         await MySQLPool.get().query<ResultSetHeader>(relSql);
 
         return newOrder;
@@ -90,7 +90,7 @@ class MySQLOrderRepository implements OrderRepository {
         const [dbOrderHasProducts] = await MySQLPool.get().query<
             DBOrderHasProduct[]
         >(
-            "SELECT r.order_idorder, r.product_idproduct, r.amount_prod FROM order_has_product AS r JOIN orders ON orders.user_order = ?",
+            "SELECT r.orders_idorder, r.product_idproduct, r.amount_prod FROM orders_has_product AS r JOIN orders ON orders.user_order = ?",
             [username],
         );
 
@@ -103,7 +103,7 @@ class MySQLOrderRepository implements OrderRepository {
 
         const [dbOrderHasProducts] = await MySQLPool.get().query<
             DBOrderHasProduct[]
-        >("SELECT product_idproduct FROM order_has_product");
+        >("SELECT product_idproduct FROM orders_has_product");
 
         return this.formatRelationship({ dbOrders, dbOrderHasProducts });
     }
@@ -117,7 +117,7 @@ class MySQLOrderRepository implements OrderRepository {
         const adaptedOrder = this.adaptOrder(result[0]);
         const [productsResult] = await MySQLPool.get().query<
             DBOrderHasProduct[]
-        >("SELECT * FROM order_has_product WHERE order_idorder = ?", [id]);
+        >("SELECT * FROM orders_has_product WHERE orders_idorder = ?", [id]);
 
         const adaptedProducts = this.adaptOrderHasProduct(productsResult);
 
@@ -158,7 +158,7 @@ class MySQLOrderRepository implements OrderRepository {
         dbOrders.forEach((order) => {
             const adaptedOrder = this.adaptOrder(order);
             const matchingProducts = dbOrderHasProducts.filter(
-                (rel) => rel.order_idorder === adaptedOrder.id,
+                (rel) => rel.orders_idorder === adaptedOrder.id,
             );
             const adaptedProducts = this.adaptOrderHasProduct(matchingProducts);
 
