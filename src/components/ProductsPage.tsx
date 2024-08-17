@@ -2,6 +2,7 @@ import { MdAddShoppingCart } from "react-icons/md";
 import Product from "@/models/Product";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ProductItem from "@/components/ui/product-item";
 
 type ProductsPageProps = {
     products: Product[];
@@ -15,24 +16,16 @@ async function ProductsPage(props: ProductsPageProps) {
                 <h1 className="text-2xl font-bold sm:text-4xl">Productos</h1>
             </header>
             <ul className="flex flex-col w-full gap-10 px-4 md:max-w-4xl">
-                {props.products.map((item) => (
-                    <Card
-                        key={item.id}
-                        className="rounded-2xl hover:bg-muted/20 transition-colors"
-                    >
-                        <CardContent className="flex flex-col min-[400px]:flex-row justify-between items-center gap-6 min-[400px]:gap-2 p-10">
-                            <li className="flex flex-col gap-1 w-full">
-                                <p className="text-lg font-bold">{item.name}</p>
-                                <p className="text-muted-foreground">
-                                    {item.description}
-                                </p>
-                            </li>
+                {props.products.map((product) => (
+                    <ProductItem
+                        product={product}
+                        endContent={
                             <form>
                                 <Button
                                     type="submit"
                                     formAction={props.onAddToCardClick.bind(
                                         null,
-                                        item.id,
+                                        product.id,
                                     )}
                                     size="icon"
                                     variant="outline"
@@ -40,8 +33,8 @@ async function ProductsPage(props: ProductsPageProps) {
                                     <MdAddShoppingCart size={24} />
                                 </Button>
                             </form>
-                        </CardContent>
-                    </Card>
+                        }
+                    />
                 ))}
             </ul>
         </main>
