@@ -1,9 +1,9 @@
-import { GrCart } from "react-icons/gr";
-import { FaRegUser } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import { MdMenu } from "react-icons/md";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { MdShoppingCart } from "react-icons/md";
 
 const links = [
     ["/productos", "Productos"],
@@ -33,12 +33,12 @@ function Header() {
                 <div className="hidden md:flex gap-2 justify-end w-full">
                     <Button asChild variant="ghost" size="icon">
                         <Link href="/carrito">
-                            <GrCart size={24} />
+                            <MdShoppingCart size={24} />
                         </Link>
                     </Button>
                     <Button asChild variant="ghost" size="icon">
                         <Link href="/">
-                            <FaRegUser size={24} />
+                            <FaUser size={24} />
                         </Link>
                     </Button>
                 </div>
