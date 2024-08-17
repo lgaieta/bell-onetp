@@ -13,7 +13,7 @@ const links = [
 
 function Header() {
     return (
-        <header className="bg-background text-foreground sticky top-0 w-full border-b border-b-border">
+        <header className="bg-background text-foreground sticky top-0 w-full border-b border-b-border z-50">
             <div className="flex gap-8 items-center justify-between md:justify-normal sm:container w-full px-4 h-14">
                 <Link href="/" className="tracking-tight text-lg font-bold">
                     bell
