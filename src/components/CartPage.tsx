@@ -83,7 +83,7 @@ async function CartPage(props: CartPageProps) {
                         </CardFooter>
                     </Card>
                 </div>
-                <Card className="flex justify-center w-full rounded-xl bg-muted/40 col-span-2 p-16">
+                <Card className="flex justify-center w-full rounded-xl bg-muted/40 md:col-span-2 p-6 md:p-16">
                     {props.productsList.length > 0 ? (
                         <div className="flex flex-col gap-6 w-full">
                             {props.productsList.map((product) => (
