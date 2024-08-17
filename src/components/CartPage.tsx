@@ -17,7 +17,6 @@ import {
     Card,
     CardHeader,
     CardTitle,
-    CardDescription,
     CardContent,
     CardFooter,
 } from "@/components/ui/card";
@@ -46,7 +45,10 @@ async function CartPage(props: CartPageProps) {
                         <CardContent>
                             {props.productsList.length > 0 ? (
                                 props.productsList.map((product) => (
-                                    <div className="flex justify-between w-full">
+                                    <div
+                                        className="flex justify-between w-full"
+                                        key={product.name}
+                                    >
                                         <p>{product.name}</p>
                                         <p>${product.price}</p>
                                     </div>
@@ -57,7 +59,6 @@ async function CartPage(props: CartPageProps) {
                                     compras para comenzar.
                                 </p>
                             )}
-
                             {props.productsList.length > 0 && (
                                 <div className="flex justify-between w-full pt-4">
                                     <p>Total</p>
