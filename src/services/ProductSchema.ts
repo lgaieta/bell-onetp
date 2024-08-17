@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const ProductIdSchema = z.coerce.number().min(1);
+export const ProductIdSchema = z.string().min(1).max(50);
 
 export const ProductSchema = z.object({
     id: ProductIdSchema,

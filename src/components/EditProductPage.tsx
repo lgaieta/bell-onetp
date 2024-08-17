@@ -27,7 +27,6 @@ async function EditProductPage(props: EditProductPageProps) {
                         placeholder="0101010"
                         required
                         disabled
-                        type="number"
                         defaultValue={product.id}
                     />
                 </div>

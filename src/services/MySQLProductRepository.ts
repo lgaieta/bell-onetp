@@ -4,7 +4,7 @@ import MySQLPool from "@/services/MySQLPool";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 type DBProduct = {
-    idproduct: number;
+    idproduct: string;
     product_name: string;
     product_desc: string;
     price: number;
@@ -42,8 +42,9 @@ class MySQLProductRepository implements ProductRepository {
 
     async create(product: Product): Promise<Product> {
         const sql =
-            "INSERT INTO product (product_name, product_desc, price, stock) VALUES (?, ?, ?, ?)";
+            "INSERT INTO product (idproduct, product_name, product_desc, price, stock) VALUES (?, ?, ?, ?, ?)";
         await MySQLPool.get().query<ResultSetHeader>(sql, [
+            product.id,
             product.name,
             product.description,
             product.price,
@@ -63,7 +64,7 @@ class MySQLProductRepository implements ProductRepository {
         return products;
     }
 
-    async getById(id: number): Promise<Product> {
+    async getById(id: Product["id"]): Promise<Product> {
         const sql = "SELECT * FROM product WHERE idproduct = ?";
         const [result] = await MySQLPool.get().query<RowDataPacket[]>(sql, [
             id,
