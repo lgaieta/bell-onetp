@@ -13,26 +13,26 @@ async function ProductsPage(props: ProductsPageProps) {
             <header>
                 <h1 className="text-2xl font-bold sm:text-4xl">Productos</h1>
             </header>
-            <div className="flex flex-col w-full gap-6 px-4 md:max-w-4xl">
+            <ul className="flex flex-col w-full gap-10 px-4 md:max-w-4xl">
                 {props.products.map((item) => (
                     <Card
                         key={item.id}
-                        className="rounded-2xl hover:bg-muted transition-colors"
+                        className="rounded-2xl hover:bg-muted/20 transition-colors"
                     >
-                        <CardContent className="flex justify-between items-center p-10">
-                            <div className="flex flex-col gap-1">
+                        <CardContent className="flex flex-col min-[400px]:flex-row justify-between items-center gap-6 min-[400px]:gap-2 p-10">
+                            <li className="flex flex-col gap-1 w-full">
                                 <p className="text-lg font-bold">{item.name}</p>
                                 <p className="text-muted-foreground">
                                     {item.description}
                                 </p>
-                            </div>
+                            </li>
                             <Button size="icon" variant="outline">
                                 <MdAddShoppingCart size={24} />
                             </Button>
                         </CardContent>
                     </Card>
                 ))}
-            </div>
+            </ul>
         </main>
     );
 }
