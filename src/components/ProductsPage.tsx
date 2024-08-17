@@ -1,17 +1,7 @@
-import { IoAdd } from "react-icons/io5";
-
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { MdAddShoppingCart } from "react-icons/md";
 import Product from "@/models/Product";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 type ProductsPageProps = {
     products: Product[];
@@ -23,37 +13,24 @@ async function ProductsPage(props: ProductsPageProps) {
             <header>
                 <h1 className="text-2xl font-bold sm:text-4xl">Productos</h1>
             </header>
-            <div className="flex flex-col w-full gap-6 max-w-sm sm:max-w-xl">
+            <div className="flex flex-col w-full gap-6 px-4 md:max-w-4xl">
                 {props.products.map((item) => (
-                    <div
+                    <Card
                         key={item.id}
-                        className="flex flex-row justify-between items-center p-6 rounded-lg bg-neutral-100 font-semibold  "
+                        className="rounded-2xl hover:bg-muted transition-colors"
                     >
-                        {item.name}
-                        <AlertDialog>
-                            <AlertDialogTrigger>
-                                <div className=" rounded-md p-1  font-medium text-white bg-red-500  hover:bg-red-600 ">
-                                    <IoAdd />
-                                </div>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle>
-                                        ¿Quieres agregar este producto al
-                                        carrito?
-                                    </AlertDialogTitle>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>
-                                        Cancel
-                                    </AlertDialogCancel>
-                                    <AlertDialogAction>
-                                        Continue
-                                    </AlertDialogAction>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
-                    </div>
+                        <CardContent className="flex justify-between items-center p-10">
+                            <div className="flex flex-col gap-1">
+                                <p className="text-lg font-bold">{item.name}</p>
+                                <p className="text-muted-foreground">
+                                    {item.description}
+                                </p>
+                            </div>
+                            <Button size="icon" variant="outline">
+                                <MdAddShoppingCart size={24} />
+                            </Button>
+                        </CardContent>
+                    </Card>
                 ))}
             </div>
         </main>
