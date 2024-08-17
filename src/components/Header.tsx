@@ -64,6 +64,24 @@ function Header() {
                                     <Link href={link}>{label}</Link>
                                 </Button>
                             ))}
+                            <Button
+                                variant="link"
+                                asChild
+                                className="text-foreground py-8 w-full"
+                            >
+                                <Link href="/" className="flex gap-2">
+                                    Mi cuenta
+                                </Link>
+                            </Button>
+                            <Button
+                                variant="link"
+                                asChild
+                                className="text-foreground py-8 w-full"
+                            >
+                                <Link href="/carrito" className="flex gap-2">
+                                    Mi carrito
+                                </Link>
+                            </Button>
                         </nav>
                     </SheetContent>
                 </Sheet>
