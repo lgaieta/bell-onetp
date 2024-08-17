@@ -5,15 +5,18 @@ import {
     AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
+    AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import Product from "@/models/Product";
+import { Button } from "@/components/ui/button";
 
 type CartPageProps = {
     productsList: Product[];
+    onRemoveProductFromCart: (id: Product["id"], formData: FormData) => void;
 };
 
 async function CartPage(props: CartPageProps) {
@@ -71,14 +74,29 @@ async function CartPage(props: CartPageProps) {
                                             ¿Quieres eliminar este producto del
                                             carrito?
                                         </AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            Podrás agregarlo nuevamente desde la
+                                            página de productos.
+                                        </AlertDialogDescription>
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
                                         <AlertDialogCancel>
                                             Cancel
                                         </AlertDialogCancel>
-                                        <AlertDialogAction className="bg-red-500 hover:bg-red-600">
-                                            Continue
-                                        </AlertDialogAction>
+
+                                        <form
+                                            action={props.onRemoveProductFromCart.bind(
+                                                null,
+                                                item.id,
+                                            )}
+                                        >
+                                            <AlertDialogAction
+                                                type="submit"
+                                                className="bg-destructive text-destructive-foreground"
+                                            >
+                                                Eliminar
+                                            </AlertDialogAction>
+                                        </form>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
                             </AlertDialog>
