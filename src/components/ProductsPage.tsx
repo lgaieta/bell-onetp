@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 
 type ProductsPageProps = {
     products: Product[];
+    onAddToCardClick: (id: Product["id"], formData: FormData) => void;
 };
 
 async function ProductsPage(props: ProductsPageProps) {
@@ -26,9 +27,19 @@ async function ProductsPage(props: ProductsPageProps) {
                                     {item.description}
                                 </p>
                             </li>
-                            <Button size="icon" variant="outline">
-                                <MdAddShoppingCart size={24} />
-                            </Button>
+                            <form>
+                                <Button
+                                    type="submit"
+                                    formAction={props.onAddToCardClick.bind(
+                                        null,
+                                        item.id,
+                                    )}
+                                    size="icon"
+                                    variant="outline"
+                                >
+                                    <MdAddShoppingCart size={24} />
+                                </Button>
+                            </form>
                         </CardContent>
                     </Card>
                 ))}

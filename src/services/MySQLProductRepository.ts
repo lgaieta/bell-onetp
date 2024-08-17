@@ -72,6 +72,18 @@ class MySQLProductRepository implements ProductRepository {
 
         return product;
     }
+
+    async getByIdList(idList: Product["id"][]): Promise<Product[]> {
+        const sql = "SELECT * FROM product WHERE idproduct IN (?)";
+        const [result] = await MySQLPool.get().query<RowDataPacket[]>(sql, [
+            idList,
+        ]);
+        const products: Product[] = result.map((item) =>
+            adaptProduct(item as DBProduct),
+        );
+
+        return products;
+    }
 }
 
 export default MySQLProductRepository;

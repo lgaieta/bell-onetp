@@ -1,6 +1,3 @@
-import ProductRepository from "@/models/ProductRepository";
-
-import MockProductRepository from "@/services/MockProductRepository";
 import { MdDelete } from "react-icons/md";
 
 import {
@@ -8,17 +5,18 @@ import {
     AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
-    AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import Product from "@/models/Product";
 
-async function CartPage() {
-    const productRepository: ProductRepository = new MockProductRepository();
-    const list = await productRepository.getList();
+type CartPageProps = {
+    productsList: Product[];
+};
 
+async function CartPage(props: CartPageProps) {
     return (
         <main className="flex w-full min-h-screen flex-col gap-12 items-center py-16">
             <header>
@@ -55,7 +53,7 @@ async function CartPage() {
                     </AlertDialog>
                 </div>
                 <div className="flex flex-col w-full gap-6 sm:max-w-xs ">
-                    {list.map((item) => (
+                    {props.productsList.map((item) => (
                         <div
                             key={item.id}
                             className="flex flex-row justify-between p-6 rounded-lg bg-neutral-100 font-semibold sm:text-sm sm:p-4 "
