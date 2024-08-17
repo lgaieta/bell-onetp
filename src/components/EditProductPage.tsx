@@ -12,13 +12,13 @@ async function EditProductPage(props: EditProductPageProps) {
     const { product, formAction } = props;
 
     return (
-        <main className="flex justify-center items-center">
-            <form className="grid gap-4" action={formAction}>
-                <header className="flex justify-center py-16">
-                    <h1 className="text-2xl font-bold sm:text-4xl">
-                        Editar producto
-                    </h1>
-                </header>
+        <main className="flex flex-col justify-center items-center px-4 w-full sm:container">
+            <header className="flex justify-center py-16">
+                <h1 className="text-2xl font-bold sm:text-4xl">
+                    Editar producto
+                </h1>
+            </header>
+            <form className="grid gap-6 w-full max-w-xl" action={formAction}>
                 <div className="grid gap-2">
                     <Label htmlFor="code">Código de producto</Label>
                     <Input
@@ -43,7 +43,9 @@ async function EditProductPage(props: EditProductPageProps) {
                     />
                 </div>
                 <div className="grid gap-2">
-                    <Label htmlFor="description">Nombre del producto</Label>
+                    <Label htmlFor="description">
+                        Descripción del producto
+                    </Label>
                     <Input
                         id="description"
                         name="description"
@@ -54,7 +56,7 @@ async function EditProductPage(props: EditProductPageProps) {
                     />
                 </div>
                 <div className="grid gap-2">
-                    <Label htmlFor="price">Precio u.</Label>
+                    <Label htmlFor="price">Precio unitario</Label>
                     <Input
                         id="price"
                         name="price"
