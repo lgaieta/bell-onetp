@@ -3,15 +3,15 @@ import ProductRepository from "@/models/ProductRepository";
 import MySQLPool from "@/services/MySQLPool";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
-type DBProduct = {
+export interface MySQLDBProduct extends RowDataPacket {
     idproduct: string;
     product_name: string;
     product_desc: string;
     price: number;
     stock: number;
-};
+}
 
-function adaptProduct(item: DBProduct): Product {
+export function adaptProductMySQL(item: MySQLDBProduct): Product {
     return {
         id: item.idproduct,
         name: item.product_name,
@@ -58,7 +58,7 @@ class MySQLProductRepository implements ProductRepository {
         const sql = "SELECT * FROM product";
         const [result] = await MySQLPool.get().query<RowDataPacket[]>(sql);
         const products: Product[] = result.map((item) =>
-            adaptProduct(item as DBProduct),
+            adaptProductMySQL(item as MySQLDBProduct),
         );
 
         return products;
@@ -69,7 +69,7 @@ class MySQLProductRepository implements ProductRepository {
         const [result] = await MySQLPool.get().query<RowDataPacket[]>(sql, [
             id,
         ]);
-        const product = adaptProduct(result[0] as DBProduct);
+        const product = adaptProductMySQL(result[0] as MySQLDBProduct);
 
         return product;
     }
@@ -80,7 +80,7 @@ class MySQLProductRepository implements ProductRepository {
             idList,
         ]);
         const products: Product[] = result.map((item) =>
-            adaptProduct(item as DBProduct),
+            adaptProductMySQL(item as MySQLDBProduct),
         );
 
         return products;

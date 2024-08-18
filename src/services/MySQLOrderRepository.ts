@@ -5,6 +5,10 @@ import OrderRepository from "@/models/OrderRepository";
 import OrderState from "@/models/OrderState";
 import User from "@/models/User";
 import MySQLPool from "@/services/MySQLPool";
+import {
+    adaptProductMySQL,
+    MySQLDBProduct,
+} from "@/services/MySQLProductRepository";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 interface DBOrder extends RowDataPacket {
@@ -22,7 +26,7 @@ interface DBOrder extends RowDataPacket {
 
 interface DBOrderHasProduct extends RowDataPacket {
     orders_idorder: number;
-    product_idproduct: number;
+    product_idproduct: string;
     amount_prod: number;
 }
 
@@ -52,6 +56,12 @@ class MySQLOrderRepository implements OrderRepository {
     }
 
     async delete(id: Order["id"]): Promise<void> {
+        const deleteRelationshipSql =
+            "DELETE FROM orders_has_product WHERE orders_idorder = ?";
+        await MySQLPool.get().query<ResultSetHeader>(deleteRelationshipSql, [
+            id,
+        ]);
+
         const sql = "DELETE FROM orders WHERE idorder = ?";
         await MySQLPool.get().query<ResultSetHeader>(sql, [id]);
     }
@@ -93,6 +103,23 @@ class MySQLOrderRepository implements OrderRepository {
         return newOrder;
     }
 
+    async getProducts(orderId: Order["id"]) {
+        const sql = `SELECT p.* 
+            FROM orders_has_product AS oh
+            JOIN product AS p ON oh.product_idproduct = p.idproduct
+            WHERE oh.orders_idorder = ?;
+        `;
+        const [dbProductsOfOrder] = await MySQLPool.get().query<
+            MySQLDBProduct[]
+        >(sql, [orderId]);
+
+        const products = dbProductsOfOrder.map((dbProduct) =>
+            adaptProductMySQL(dbProduct),
+        );
+
+        return products;
+    }
+
     async getByUsername(username: User["username"]): Promise<Order[]> {
         const sql = "SELECT * FROM orders WHERE user_order = ?";
         const [dbOrders] = await MySQLPool.get().query<DBOrder[]>(sql, [
@@ -101,9 +128,11 @@ class MySQLOrderRepository implements OrderRepository {
         const [dbOrderHasProducts] = await MySQLPool.get().query<
             DBOrderHasProduct[]
         >(
-            "SELECT r.orders_idorder, r.product_idproduct, r.amount_prod FROM orders_has_product AS r JOIN orders ON orders.user_order = ?",
+            "SELECT * FROM orders_has_product JOIN orders ON orders.idorder = orders_has_product.orders_idorder AND orders.user_order = ?",
             [username],
         );
+
+        console.log(dbOrderHasProducts);
 
         return this.formatRelationship({ dbOrders, dbOrderHasProducts });
     }

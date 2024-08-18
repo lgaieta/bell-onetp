@@ -18,5 +18,5 @@ export async function editOrderStateAction(
     const orderRepository = new MySQLOrderRepository();
     await orderRepository.updateState(validatedId, validatedNewState);
 
-    revalidatePath("/pedidos"); // Revalidate the cache for the orders page, or the path where the orders are listed
+    revalidatePath("/pedidos/" + id);
 }

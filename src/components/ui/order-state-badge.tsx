@@ -22,7 +22,7 @@ function OrderStateBadge(props: { state: OrderState }) {
     return (
         <Badge
             className={cn(
-                "h-fit w-fit mb-2 text-white",
+                "h-fit w-fit text-white",
                 OrderStateColors[props.state],
             )}
         >
