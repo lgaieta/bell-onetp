@@ -43,7 +43,7 @@ function Header() {
                     </Button>
                 </div>
                 <Sheet>
-                    <SheetTrigger>
+                    <SheetTrigger asChild>
                         <Button
                             className="md:hidden"
                             variant="outline"
