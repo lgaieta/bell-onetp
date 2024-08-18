@@ -1,6 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import OrderStateBadge, {
+    OrderStateColors,
+    OrderStateLabels,
+} from "@/components/ui/order-state-badge";
 import { cn } from "@/lib/utils";
 import Order from "@/models/Order";
 import OrderState from "@/models/OrderState";
@@ -8,22 +12,6 @@ import { MdMoreVert } from "react-icons/md";
 
 type OrdersClientPageProps = {
     orders: Order[];
-};
-
-const OrderStateColors = {
-    [OrderState.Pending]: "bg-[#f59e0b]",
-    [OrderState.Canceled]: "bg-[#b91c1c]",
-    [OrderState.Delivered]: "bg-[#16a34a]",
-    [OrderState.Processed]: "bg-[#0369a1]",
-    [OrderState.Shipped]: "bg-[#7c3aed]",
-};
-
-const OrderStateLabels = {
-    [OrderState.Pending]: "Pendiente",
-    [OrderState.Canceled]: "Cancelado",
-    [OrderState.Delivered]: "Entregado",
-    [OrderState.Processed]: "Procesado",
-    [OrderState.Shipped]: "En viaje",
 };
 
 async function OrdersClientPage(props: OrdersClientPageProps) {
@@ -42,16 +30,9 @@ async function OrdersClientPage(props: OrdersClientPageProps) {
                         >
                             <CardContent className="flex gap-6 p-6 min-[400px]:p-10">
                                 <div className="flex flex-col gap-2 w-full">
-                                    <Badge
-                                        className={cn(
-                                            "h-fit w-fit mb-2 text-white",
-                                            OrderStateColors[
-                                                order.operationState
-                                            ],
-                                        )}
-                                    >
-                                        {OrderStateLabels[order.operationState]}
-                                    </Badge>
+                                    <OrderStateBadge
+                                        state={order.operationState}
+                                    />
                                     <p className="text-xl font-bold">
                                         Compra Nº{order.id}
                                     </p>

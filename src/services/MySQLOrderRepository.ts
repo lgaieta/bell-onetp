@@ -56,6 +56,17 @@ class MySQLOrderRepository implements OrderRepository {
         await MySQLPool.get().query<ResultSetHeader>(sql, [id]);
     }
 
+    async updateState(
+        id: Order["id"],
+        newState: Order["operationState"],
+    ): Promise<void> {
+        const sql = "UPDATE orders SET operation_state = ? WHERE idorder = ?";
+        const [result] = await MySQLPool.get().query<ResultSetHeader>(sql, [
+            newState,
+            id,
+        ]);
+    }
+
     async update(newOrder: Order): Promise<Order> {
         const sql =
             "UPDATE orders SET total_price = ?, operation_state = ? WHERE idorder = ?";
