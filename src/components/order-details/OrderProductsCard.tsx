@@ -18,6 +18,7 @@ function OrderProductsCard(props: OrderProductsCardProps) {
             <div className="flex flex-col gap-6 w-full">
                 {props.products.map((product) => (
                     <ProductItem
+                        key={product.id}
                         product={product}
                         endContent={
                             <div className="flex flex-col gap-2 items-end justify-center">
