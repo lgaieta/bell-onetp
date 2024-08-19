@@ -20,8 +20,11 @@ type ProductsAdminPageProps = {
 async function ProductsAdminPage(props: ProductsAdminPageProps) {
     return (
         <main className="flex w-full min-h-screen flex-col gap-12 items-center container py-16">
-            <header>
+            <header className="flex flex-col gap-10">
                 <h1 className="text-2xl font-bold sm:text-4xl">Productos</h1>
+                <Button asChild>
+                    <Link href="/productos/admin/nuevo">Nuevo producto</Link>
+                </Button>
             </header>
             <div className="w-full border border-border rounded-2xl">
                 <Table>
