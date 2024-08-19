@@ -23,7 +23,7 @@ function LoginPage(props: LoginPageProps) {
                     <Input
                         id="username"
                         name="username"
-                        placeholder="ejemplo@bell.com"
+                        placeholder="Por ejemplo: tellodev"
                         required
                     />
                 </div>
