@@ -1,10 +1,15 @@
 import RegisterPage from "@/components/RegisterPage";
 import MySQLUserRepository from "@/services/MySQLUserRepository";
 import PasswordEncrypter from "@/services/PasswordEncrypter";
+import SessionManager from "@/services/SessionManager";
+import { SessionType } from "@/services/SessionPayload";
 import { UserPasswordSchema, UserUsernameSchema } from "@/services/UserSchema";
 import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
+    const sessionVerification = await SessionManager.verifySession();
+    if (sessionVerification) redirect("/");
+
     async function registerUserAction(formData: FormData) {
         "use server";
         const data = Object.fromEntries(formData);
@@ -19,6 +24,11 @@ export default function Page() {
         const userRepository = new MySQLUserRepository();
 
         await userRepository.create(validatedUsername, encryptedPassword);
+
+        await SessionManager.createSession(
+            validatedUsername,
+            SessionType.Client,
+        );
 
         redirect("/");
     }
