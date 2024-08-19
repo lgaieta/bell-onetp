@@ -17,6 +17,7 @@ async function ProductsPage(props: ProductsPageProps) {
             <ul className="flex flex-col w-full gap-10 px-4 md:max-w-4xl">
                 {props.products.map((product) => (
                     <ProductItem
+                        key={product.id}
                         product={product}
                         endContent={
                             <form className="flex gap-4 items-center">
