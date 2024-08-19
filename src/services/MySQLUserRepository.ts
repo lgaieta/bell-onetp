@@ -1,3 +1,4 @@
+import NotFoundError from "@/lib/NotFoundError";
 import User from "@/models/User";
 import UserRepository from "@/models/UserRepository";
 import MySQLPool from "@/services/MySQLPool";
@@ -34,6 +35,8 @@ class MySQLUserRepository implements UserRepository {
         const [dbUser] = await MySQLPool.get().query<MySQLUser[]>(sql, [
             username,
         ]);
+
+        if (!dbUser[0]) throw new NotFoundError("User not found.");
 
         return this.adaptDbUser(dbUser[0]);
     }

@@ -8,13 +8,12 @@ import { redirect } from "next/navigation";
 
 export default async function Page() {
     const sessionVerification = await SessionManager.verifySession();
-    if (sessionVerification) redirect("/");
+    if (sessionVerification.isAuth) redirect("/");
 
     async function registerUserAction(formData: FormData) {
         "use server";
         const data = Object.fromEntries(formData);
 
-        console.log(data);
         const validatedUsername = UserUsernameSchema.parse(data.username);
         const validatedPassword = UserPasswordSchema.parse(data.password);
 
