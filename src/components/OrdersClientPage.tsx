@@ -21,6 +21,13 @@ async function OrdersClientPage(props: OrdersClientPageProps) {
                 <h1 className="text-2xl font-bold sm:text-4xl">Mis compras</h1>
             </header>
             <ul className="flex flex-col items-center justify-center w-full gap-10 px-4 md:max-w-4xl">
+                {props.orders.length === 0 && (
+                    <p className="text-center max-w-sm text-muted-foreground">
+                        Parece que no has hecho ninguna compra, para realizar
+                        una debes seleccionar los productos e ir al carrito para
+                        comenzar la compra.
+                    </p>
+                )}
                 {props.orders.map((order) => (
                     <li key={order.id} className="w-full max-w-sm">
                         <Card
