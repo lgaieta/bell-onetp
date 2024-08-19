@@ -1,13 +1,4 @@
 import Image from "next/image";
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-} from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
-import Link from "next/link";
-
-import Product from "@/models/Product";
 
 type HomePageProps = {};
 
