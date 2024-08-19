@@ -1,13 +1,7 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import OrderStateBadge, {
-    OrderStateColors,
-    OrderStateLabels,
-} from "@/components/ui/order-state-badge";
-import { cn } from "@/lib/utils";
+import OrderStateBadge from "@/components/ui/order-state-badge";
 import Order from "@/models/Order";
-import OrderState from "@/models/OrderState";
 import { MdMoreVert } from "react-icons/md";
 
 type OrdersClientPageProps = {
