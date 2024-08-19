@@ -39,7 +39,7 @@ function CancelOrderDialog({ orderId }: CancelOrderDialogProps) {
                     <form action={deleteOrderAction.bind(null, orderId)}>
                         <AlertDialogAction
                             type="submit"
-                            className="bg-destructive text-destructive-foreground hover:bg-destructive"
+                            className="w-full bg-destructive text-destructive-foreground hover:bg-destructive"
                         >
                             Cancelar pedido
                         </AlertDialogAction>
