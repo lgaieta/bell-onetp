@@ -19,7 +19,6 @@ class SessionManager {
     }
 
     static async decrypt(session: string | undefined = "") {
-        console.log(session);
         try {
             const { payload } = await jwtVerify<SessionPayload>(
                 session,
@@ -31,7 +30,6 @@ class SessionManager {
             return payload;
         } catch (error) {
             console.error(error);
-            console.log("Failed to verify session");
         }
     }
 

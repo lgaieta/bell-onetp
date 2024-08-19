@@ -132,8 +132,6 @@ class MySQLOrderRepository implements OrderRepository {
             [username],
         );
 
-        console.log(dbOrderHasProducts);
-
         return this.formatRelationship({ dbOrders, dbOrderHasProducts });
     }
 

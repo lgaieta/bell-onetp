@@ -17,7 +17,6 @@ class MySQLUserRepository implements UserRepository {
         password: User["password"],
     ): Promise<void> {
         const sql = "INSERT INTO user (username, password) VALUES (?, ?)";
-        console.log(password);
         await MySQLPool.get().query<ResultSetHeader>(sql, [username, password]);
     }
 
