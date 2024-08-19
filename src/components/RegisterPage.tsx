@@ -22,6 +22,8 @@ function RegisterPage(props: RegisterPageProps) {
                         id="username"
                         name="username"
                         placeholder="Por ejemplo: lgaieta"
+                        minLength={8}
+                        maxLength={16}
                         required
                     />
                 </div>
