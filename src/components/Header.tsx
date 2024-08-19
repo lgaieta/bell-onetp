@@ -43,11 +43,7 @@ async function Header() {
                 </nav>
                 <div className="hidden md:flex gap-2 justify-end w-full">
                     {isAdmin ? (
-                        <Button asChild variant="ghost" size="icon">
-                            <Link href="/">
-                                <FaUser size={24} />
-                            </Link>
-                        </Button>
+                        <HeaderUserButton />
                     ) : session.isAuth ? (
                         <Fragment>
                             <Button asChild variant="ghost" size="icon">
