@@ -2,19 +2,17 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- -----------------------------------------------------
--- Schema ONETP_ER
--- -----------------------------------------------------
+
 CREATE SCHEMA IF NOT EXISTS `ONETP_ER` DEFAULT CHARACTER SET utf8 ;
 USE `ONETP_ER` ;
 
 -- -----------------------------------------------------
--- Table `ONETP_ER`.`product`
+-- product
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ONETP_ER`.`product` (
-  `idproduct` INT NOT NULL AUTO_INCREMENT,
+  `idproduct` VARCHAR(50) NOT NULL,
   `product_name` VARCHAR(100) NOT NULL,
-  `desc` VARCHAR(255) NULL,
+  `product_desc` VARCHAR(255) NULL,
   `price` DECIMAL(10,2) NOT NULL,
   `stock` INT NULL,
   PRIMARY KEY (`idproduct`))
@@ -22,11 +20,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ONETP_ER`.`user`
+-- users
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ONETP_ER`.`user` (
+CREATE TABLE IF NOT EXISTS `ONETP_ER`.`users` (
   `username` VARCHAR(16) NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NULL,
   `password` VARCHAR(65) NOT NULL,
   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `CP` VARCHAR(10) NULL,
@@ -35,9 +33,9 @@ CREATE TABLE IF NOT EXISTS `ONETP_ER`.`user` (
 
 
 -- -----------------------------------------------------
--- Table `ONETP_ER`.`order`
+-- orders
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ONETP_ER`.`order` (
+CREATE TABLE IF NOT EXISTS `ONETP_ER`.`orders` (
   `idorder` INT NOT NULL AUTO_INCREMENT,
   `user_order` VARCHAR(16) NOT NULL,
   `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -47,33 +45,33 @@ CREATE TABLE IF NOT EXISTS `ONETP_ER`.`order` (
   INDEX `fk_order_user1_idx` (`user_order` ASC) VISIBLE,
   CONSTRAINT `fk_order_user1`
     FOREIGN KEY (`user_order`)
-    REFERENCES `ONETP_ER`.`user` (`username`)
+    REFERENCES `ONETP_ER`.`users` (`username`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ONETP_ER`.`payment_method`
+-- payment_method
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ONETP_ER`.`payment_method` (
   `id_paymeth` INT NOT NULL AUTO_INCREMENT,
+  `user_id` VARCHAR(16) NOT NULL,
   `method` ENUM('credit_card', 'debit_card', 'paypal', 'bank_transfer') NOT NULL,
   `details` VARCHAR(255) NULL,
   `active` TINYINT NOT NULL DEFAULT 1,
-  `user_id` VARCHAR(16) NOT NULL,
   PRIMARY KEY (`id_paymeth`),
   INDEX `fk_payment_method_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_payment_method_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `ONETP_ER`.`user` (`username`)
+    REFERENCES `ONETP_ER`.`users` (`username`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ONETP_ER`.`payment`
+-- payment
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ONETP_ER`.`payment` (
   `idpayment` INT NOT NULL AUTO_INCREMENT,
@@ -92,14 +90,14 @@ CREATE TABLE IF NOT EXISTS `ONETP_ER`.`payment` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_payment_order1`
     FOREIGN KEY (`order_id`)
-    REFERENCES `ONETP_ER`.`order` (`idorder`)
+    REFERENCES `ONETP_ER`.`orders` (`idorder`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ONETP_ER`.`shipment`
+-- shipment
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ONETP_ER`.`shipment` (
   `idshipment` INT NOT NULL AUTO_INCREMENT,
@@ -112,32 +110,32 @@ CREATE TABLE IF NOT EXISTS `ONETP_ER`.`shipment` (
   INDEX `fk_shipment_order1_idx` (`order_id` ASC) VISIBLE,
   CONSTRAINT `fk_shipment_order1`
     FOREIGN KEY (`order_id`)
-    REFERENCES `ONETP_ER`.`order` (`idorder`)
+    REFERENCES `ONETP_ER`.`orders` (`idorder`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ONETP_ER`.`order_has_product`
+-- orders_has_product
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ONETP_ER`.`order_has_product` (
-  `order_idorder` INT NOT NULL,
-  `product_idproduct` INT NOT NULL,
-  `amount_prod` INT NOT NULL,
-  PRIMARY KEY (`order_idorder`, `product_idproduct`),
-  INDEX `fk_order_has_product_product1_idx` (`product_idproduct` ASC) VISIBLE,
-  INDEX `fk_order_has_product_order1_idx` (`order_idorder` ASC) VISIBLE,
-  CONSTRAINT `fk_order_has_product_order1`
-    FOREIGN KEY (`order_idorder`)
-    REFERENCES `ONETP_ER`.`order` (`idorder`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_order_has_product_product1`
+CREATE TABLE IF NOT EXISTS `ONETP_ER`.`orders_has_product` (
+  `orders_idorder` INT NOT NULL,
+  `product_idproduct` VARCHAR(50) NOT NULL,
+  `amount_prod` INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`orders_idorder`, `product_idproduct`),
+  INDEX `fk_orders_has_product_product1_idx` (`product_idproduct` ASC) VISIBLE,
+  INDEX `fk_orders_has_product_orders1_idx` (`orders_idorder` ASC) VISIBLE,
+  CONSTRAINT `fk_orders_has_product_orders1`
+    FOREIGN KEY (`orders_idorder`)
+    REFERENCES `ONETP_ER`.`orders` (`idorder`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_orders_has_product_product1`
     FOREIGN KEY (`product_idproduct`)
     REFERENCES `ONETP_ER`.`product` (`idproduct`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
