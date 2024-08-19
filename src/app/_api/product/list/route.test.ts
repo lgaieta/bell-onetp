@@ -1,4 +1,4 @@
-import { GET } from "@/app/api/product/list/route";
+import { GET } from "@/app/_api/product/list/route";
 import { expect, test } from "vitest";
 
 test("should return data with status 200", async () => {

@@ -1,24 +1,25 @@
-import ApiStrings from "@/app/api/ApiStrings";
+import ApiStrings from "@/app/_api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
-import MySQLOrderRepository from "@/services/MySQLOrderRepository";
 import { OrderIdSchema } from "@/services/OrderSchema";
-import { NextRequest } from "next/server";
 import { ZodError } from "zod";
+import { NextRequest } from "next/server";
+import MySQLOrderRepository from "@/services/MySQLOrderRepository";
 
-export async function GET(request: NextRequest) {
+export async function DELETE(request: NextRequest) {
     try {
-        const searchParams = request.nextUrl.searchParams;
-        const queryId = searchParams.get(ApiStrings.orderIdKey);
+        const { id } = await request.json();
 
-        const validatedId = OrderIdSchema.parse(queryId);
-
+        const validatedUserId = OrderIdSchema.parse(id);
         const orderRepository: OrderRepository = new MySQLOrderRepository();
-        const order = await orderRepository.getById(validatedId);
 
-        return Response.json(order);
+        await orderRepository.delete(validatedUserId);
+
+        return Response.json({ success: true });
     } catch (error) {
+        console.error(ApiStrings.consoleOrderDeleteError, error);
+
         if (error instanceof ZodError)
             return generateResponseError({
                 message: ApiStrings.invalidIdMessage,
@@ -27,10 +28,8 @@ export async function GET(request: NextRequest) {
         if (error instanceof NotFoundError)
             return generateResponseError({ message: error.message });
 
-        console.error(ApiStrings.consoleOrderFetchError, error);
-
         return generateResponseError({
-            message: ApiStrings.orderFetchErrorMessage,
+            message: ApiStrings.orderDeleteErrorMessage,
         });
     }
 }

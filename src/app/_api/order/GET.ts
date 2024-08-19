@@ -1,21 +1,21 @@
-import ApiStrings from "@/app/api/ApiStrings";
+import ApiStrings from "@/app/_api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
 import MySQLOrderRepository from "@/services/MySQLOrderRepository";
-import { UserUsernameSchema } from "@/services/UserSchema";
+import { OrderIdSchema } from "@/services/OrderSchema";
 import { NextRequest } from "next/server";
 import { ZodError } from "zod";
 
 export async function GET(request: NextRequest) {
     try {
         const searchParams = request.nextUrl.searchParams;
-        const queryUsername = searchParams.get(ApiStrings.userUsernameKey);
+        const queryId = searchParams.get(ApiStrings.orderIdKey);
 
-        const validatedUsername = UserUsernameSchema.parse(queryUsername);
+        const validatedId = OrderIdSchema.parse(queryId);
 
         const orderRepository: OrderRepository = new MySQLOrderRepository();
-        const order = await orderRepository.getByUsername(validatedUsername);
+        const order = await orderRepository.getById(validatedId);
 
         return Response.json(order);
     } catch (error) {

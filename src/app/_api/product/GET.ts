@@ -1,4 +1,4 @@
-import ApiStrings from "@/app/api/ApiStrings";
+import ApiStrings from "@/app/_api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";

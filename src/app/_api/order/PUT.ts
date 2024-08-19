@@ -1,35 +1,36 @@
-import ApiStrings from "@/app/api/ApiStrings";
+import ApiStrings from "@/app/_api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
-import { OrderIdSchema } from "@/services/OrderSchema";
+import { OrderSchema } from "@/services/OrderSchema";
 import { ZodError } from "zod";
 import { NextRequest } from "next/server";
 import MySQLOrderRepository from "@/services/MySQLOrderRepository";
 
-export async function DELETE(request: NextRequest) {
+export async function PUT(request: NextRequest) {
     try {
-        const { id } = await request.json();
+        const requestJson = await request.json();
 
-        const validatedUserId = OrderIdSchema.parse(id);
+        const validatedOrder = OrderSchema.parse(requestJson);
+
         const orderRepository: OrderRepository = new MySQLOrderRepository();
 
-        await orderRepository.delete(validatedUserId);
+        await orderRepository.update(validatedOrder);
 
-        return Response.json({ success: true });
+        return Response.json(validatedOrder);
     } catch (error) {
-        console.error(ApiStrings.consoleOrderDeleteError, error);
+        console.error(ApiStrings.consoleOrderPutError, error);
 
         if (error instanceof ZodError)
             return generateResponseError({
-                message: ApiStrings.invalidIdMessage,
+                message: ApiStrings.invalidFieldsMessage,
             });
 
         if (error instanceof NotFoundError)
             return generateResponseError({ message: error.message });
 
         return generateResponseError({
-            message: ApiStrings.orderDeleteErrorMessage,
+            message: ApiStrings.orderUpdateErrorMessage,
         });
     }
 }
