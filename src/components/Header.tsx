@@ -7,11 +7,11 @@ import { MdShoppingCart } from "react-icons/md";
 import SessionManager from "@/services/SessionManager";
 import { SessionType } from "@/services/SessionPayload";
 import { Fragment } from "react";
+import HeaderUserButton from "@/components/header/HeaderUserButton";
 
 const links = [
     ["/productos", "Productos"],
     ["/", "Sobre nosotros"],
-    ["/compras", "Mis compras"],
 ];
 
 const adminLinks = [
@@ -55,11 +55,7 @@ async function Header() {
                                     <MdShoppingCart size={24} />
                                 </Link>
                             </Button>
-                            <Button asChild variant="ghost" size="icon">
-                                <Link href="/">
-                                    <FaUser size={24} />
-                                </Link>
-                            </Button>
+                            <HeaderUserButton />
                         </Fragment>
                     ) : (
                         <Fragment>
