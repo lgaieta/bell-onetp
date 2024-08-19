@@ -2,8 +2,13 @@ import EditProductPage from "@/components/EditProductPage";
 import ProductRepository from "@/models/ProductRepository";
 import MySQLProductRepository from "@/services/MySQLProductRepository";
 import { ProductIdSchema, ProductSchema } from "@/services/ProductSchema";
+import SessionManager from "@/services/SessionManager";
+import { SessionType } from "@/services/SessionPayload";
+import { redirect } from "next/navigation";
 
 export default async function Page({ params }: { params: { id: string } }) {
+    const { isAuth, type } = await SessionManager.verifySession();
+    if (!isAuth || type !== SessionType.Admin) redirect("/");
     const validatedId = ProductIdSchema.parse(params.id);
 
     const productRepository: ProductRepository = new MySQLProductRepository();
