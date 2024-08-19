@@ -1,5 +1,5 @@
-import { CART_COOKIE_NAME } from "@/app/productos/page";
 import CartPage from "@/components/CartPage";
+import { CART_COOKIE_NAME } from "@/lib/constants";
 import Product from "@/models/Product";
 import MySQLProductRepository from "@/services/MySQLProductRepository";
 import { ProductIdSchema } from "@/services/ProductSchema";

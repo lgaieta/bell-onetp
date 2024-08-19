@@ -2,7 +2,6 @@ import ApiStrings from "@/app/api/ApiStrings";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
 import OrderState from "@/models/OrderState";
-import MockOrderRepository from "@/services/MockOrderRepository";
 import MySQLOrderRepository from "@/services/MySQLOrderRepository";
 import { OrderSchema } from "@/services/OrderSchema";
 import { NextRequest } from "next/server";
