@@ -1,6 +1,5 @@
 import { MdAddShoppingCart } from "react-icons/md";
 import Product from "@/models/Product";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ProductItem from "@/components/ui/product-item";
 
@@ -20,7 +19,10 @@ async function ProductsPage(props: ProductsPageProps) {
                     <ProductItem
                         product={product}
                         endContent={
-                            <form>
+                            <form className="flex gap-4 items-center">
+                                <p className="text-lg font-bold">
+                                    ${product.price}
+                                </p>
                                 <Button
                                     type="submit"
                                     formAction={props.onAddToCardClick.bind(
