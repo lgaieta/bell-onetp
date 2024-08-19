@@ -4,7 +4,12 @@ import MySQLOrderRepository from "@/services/MySQLOrderRepository";
 import { OrderIdSchema } from "@/services/OrderSchema";
 import SessionManager from "@/services/SessionManager";
 import { SessionType } from "@/services/SessionPayload";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+    title: "Detalles de pedido - bell",
+};
 
 export default async function Page({ params }: { params: { id: string } }) {
     const { isAuth, type } = await SessionManager.verifySession();

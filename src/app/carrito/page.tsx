@@ -3,8 +3,15 @@ import { CART_COOKIE_NAME } from "@/lib/constants";
 import Product from "@/models/Product";
 import MySQLProductRepository from "@/services/MySQLProductRepository";
 import { ProductIdSchema } from "@/services/ProductSchema";
+import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+
+export const metadata: Metadata = {
+    title: "Carrito de compras - bell",
+    description:
+        "Carrito de compras donde se encuentran los productos elegidos para ser comprados.",
+};
 
 export default async function Page() {
     const cartProductsIdsStrings = JSON.parse(

@@ -4,7 +4,12 @@ import PasswordEncrypter from "@/services/PasswordEncrypter";
 import SessionManager from "@/services/SessionManager";
 import { SessionType } from "@/services/SessionPayload";
 import { UserUsernameSchema, UserPasswordSchema } from "@/services/UserSchema";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+    title: "Iniciar sesión - bell",
+};
 
 export default async function Page() {
     const sessionVerification = await SessionManager.verifySession();

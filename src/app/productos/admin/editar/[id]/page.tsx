@@ -4,7 +4,12 @@ import MySQLProductRepository from "@/services/MySQLProductRepository";
 import { ProductIdSchema, ProductSchema } from "@/services/ProductSchema";
 import SessionManager from "@/services/SessionManager";
 import { SessionType } from "@/services/SessionPayload";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+    title: "Editar producto - bell",
+};
 
 export default async function Page({ params }: { params: { id: string } }) {
     const { isAuth, type } = await SessionManager.verifySession();
