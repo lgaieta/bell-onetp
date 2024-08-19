@@ -56,9 +56,9 @@ class MySQLProductRepository implements ProductRepository {
 
     async getList(): Promise<Product[]> {
         const sql = "SELECT * FROM product";
-        const [result] = await MySQLPool.get().query<RowDataPacket[]>(sql);
+        const [result] = await MySQLPool.get().query<MySQLDBProduct[]>(sql);
         const products: Product[] = result.map((item) =>
-            adaptProductMySQL(item as MySQLDBProduct),
+            adaptProductMySQL(item),
         );
 
         return products;
@@ -66,21 +66,21 @@ class MySQLProductRepository implements ProductRepository {
 
     async getById(id: Product["id"]): Promise<Product> {
         const sql = "SELECT * FROM product WHERE idproduct = ?";
-        const [result] = await MySQLPool.get().query<RowDataPacket[]>(sql, [
+        const [result] = await MySQLPool.get().query<MySQLDBProduct[]>(sql, [
             id,
         ]);
-        const product = adaptProductMySQL(result[0] as MySQLDBProduct);
+        const product = adaptProductMySQL(result[0]);
 
         return product;
     }
 
     async getByIdList(idList: Product["id"][]): Promise<Product[]> {
         const sql = "SELECT * FROM product WHERE idproduct IN (?)";
-        const [result] = await MySQLPool.get().query<RowDataPacket[]>(sql, [
+        const [result] = await MySQLPool.get().query<MySQLDBProduct[]>(sql, [
             idList,
         ]);
         const products: Product[] = result.map((item) =>
-            adaptProductMySQL(item as MySQLDBProduct),
+            adaptProductMySQL(item),
         );
 
         return products;

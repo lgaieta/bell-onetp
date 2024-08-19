@@ -88,6 +88,7 @@ async function CartPage(props: CartPageProps) {
                         <div className="flex flex-col gap-6 w-full">
                             {props.productsList.map((product) => (
                                 <ProductItem
+                                    key={product.id}
                                     product={product}
                                     endContent={
                                         <AlertDialog>

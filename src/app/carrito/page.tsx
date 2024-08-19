@@ -1,7 +1,8 @@
-import { CART_COOKIE_NAME } from "@/app/productos/page";
 import CartPage from "@/components/CartPage";
+import { CART_COOKIE_NAME } from "@/lib/constants";
 import Product from "@/models/Product";
 import MySQLProductRepository from "@/services/MySQLProductRepository";
+import { ProductIdSchema } from "@/services/ProductSchema";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -18,11 +19,10 @@ export default async function Page() {
             />
         );
 
-    const cartProductsIds = cartProductsIdsStrings.map((e: string) =>
-        Number(e),
-    );
     const productRepository = new MySQLProductRepository();
-    const productsList = await productRepository.getByIdList(cartProductsIds);
+    const productsList = await productRepository.getByIdList(
+        cartProductsIdsStrings,
+    );
 
     async function handleRemoveProductFromCart(id: Product["id"], _: FormData) {
         "use server";
@@ -30,10 +30,12 @@ export default async function Page() {
             cookies().get(CART_COOKIE_NAME)?.value || "[]",
         );
 
+        const validatedId = ProductIdSchema.parse(id);
+
         cookies().set(
             CART_COOKIE_NAME,
             JSON.stringify(
-                productsIds.filter((itemId: number) => itemId !== id),
+                productsIds.filter((itemId: string) => itemId !== validatedId),
             ),
         );
 
