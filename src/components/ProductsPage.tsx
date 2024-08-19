@@ -1,11 +1,9 @@
-import { MdAddShoppingCart } from "react-icons/md";
 import Product from "@/models/Product";
-import { Button } from "@/components/ui/button";
 import ProductItem from "@/components/ui/product-item";
+import AddToCartButton from "@/components/products/AddToCartButton";
 
 type ProductsPageProps = {
     products: Product[];
-    onAddToCardClick: (id: Product["id"], formData: FormData) => void;
 };
 
 async function ProductsPage(props: ProductsPageProps) {
@@ -26,17 +24,7 @@ async function ProductsPage(props: ProductsPageProps) {
                                 <p className="text-lg font-bold">
                                     ${product.price}
                                 </p>
-                                <Button
-                                    type="submit"
-                                    formAction={props.onAddToCardClick.bind(
-                                        null,
-                                        product.id,
-                                    )}
-                                    size="icon"
-                                    variant="outline"
-                                >
-                                    <MdAddShoppingCart size={24} />
-                                </Button>
+                                <AddToCartButton />
                             </form>
                         }
                     />
