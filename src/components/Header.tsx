@@ -2,12 +2,19 @@ import { FaUser } from "react-icons/fa";
 import { MdMenu } from "react-icons/md";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetTrigger,
+} from "@/components/ui/sheet";
 import { MdShoppingCart } from "react-icons/md";
 import SessionManager from "@/services/SessionManager";
 import { SessionType } from "@/services/SessionPayload";
 import { Fragment } from "react";
-import HeaderUserButton from "@/components/header/HeaderUserButton";
+import HeaderUserButton, {
+    ResponsiveHeaderUserButton,
+} from "@/components/header/HeaderUserButton";
 
 const links = [
     ["/productos", "Productos"],
@@ -85,32 +92,26 @@ async function Header() {
                         <nav className="flex flex-col">
                             {(isAdmin ? adminLinks : links).map(
                                 ([link, label]) => (
-                                    <Button
-                                        variant="link"
-                                        asChild
-                                        className="text-foreground py-8 w-full"
-                                        key={label}
-                                    >
-                                        <Link href={link}>{label}</Link>
-                                    </Button>
+                                    <SheetClose key={label} asChild>
+                                        <Button
+                                            variant="link"
+                                            asChild
+                                            className="text-foreground w-full"
+                                        >
+                                            <Link href={link}>{label}</Link>
+                                        </Button>
+                                    </SheetClose>
                                 ),
                             )}
                             {isAdmin ? (
-                                <Button
-                                    variant="link"
-                                    asChild
-                                    className="text-foreground py-8 w-full"
-                                >
-                                    <Link href="/" className="flex gap-2">
-                                        Mi cuenta
-                                    </Link>
-                                </Button>
+                                <SheetClose asChild>
+                                    <ResponsiveHeaderUserButton />
+                                </SheetClose>
                             ) : session.isAuth ? (
                                 <Fragment>
                                     <Button
-                                        variant="link"
                                         asChild
-                                        className="text-foreground py-8 w-full"
+                                        className="text-foreground w-full"
                                     >
                                         <Link
                                             href="/carrito"
@@ -119,40 +120,38 @@ async function Header() {
                                             Mi carrito
                                         </Link>
                                     </Button>
-                                    <Button
-                                        variant="link"
-                                        asChild
-                                        className="text-foreground py-8 w-full"
-                                    >
-                                        <Link href="/" className="flex gap-2">
-                                            Mi cuenta
-                                        </Link>
-                                    </Button>
+                                    <ResponsiveHeaderUserButton />
                                 </Fragment>
                             ) : (
                                 <div className="flex flex-col gap-2">
-                                    <Button
-                                        variant="link"
-                                        asChild
-                                        className="text-foreground py-8 w-full"
-                                    >
-                                        <Link
-                                            href="/carrito"
-                                            className="flex gap-2"
+                                    <SheetClose asChild>
+                                        <Button
+                                            variant="link"
+                                            asChild
+                                            className="text-foreground w-full"
                                         >
-                                            Mi carrito
-                                        </Link>
-                                    </Button>
-                                    <Button asChild variant="outline">
-                                        <Link href="/iniciar-sesion">
-                                            Iniciar sesión
-                                        </Link>
-                                    </Button>
-                                    <Button asChild>
-                                        <Link href="/crear-cuenta">
-                                            Registrarse
-                                        </Link>
-                                    </Button>
+                                            <Link
+                                                href="/carrito"
+                                                className="flex gap-2"
+                                            >
+                                                Mi carrito
+                                            </Link>
+                                        </Button>
+                                    </SheetClose>
+                                    <SheetClose asChild>
+                                        <Button asChild variant="outline">
+                                            <Link href="/iniciar-sesion">
+                                                Iniciar sesión
+                                            </Link>
+                                        </Button>
+                                    </SheetClose>
+                                    <SheetClose asChild>
+                                        <Button asChild>
+                                            <Link href="/crear-cuenta">
+                                                Registrarse
+                                            </Link>
+                                        </Button>
+                                    </SheetClose>
                                 </div>
                             )}
                         </nav>

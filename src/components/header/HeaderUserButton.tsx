@@ -8,6 +8,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { SheetClose } from "@/components/ui/sheet";
 import Link from "next/link";
 import { FaUser } from "react-icons/fa";
 
@@ -29,6 +30,33 @@ function HeaderUserButton() {
                 >
                     Cerrar sesión
                 </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
+}
+
+export function ResponsiveHeaderUserButton() {
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="w-full">
+                    Mi cuenta
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                <SheetClose asChild>
+                    <DropdownMenuItem asChild className="p-2">
+                        <Link href="/compras">Mis compras</Link>
+                    </DropdownMenuItem>
+                </SheetClose>
+                <SheetClose asChild>
+                    <DropdownMenuItem
+                        className="text-destructive p-2"
+                        onClick={() => logoutAction()}
+                    >
+                        Cerrar sesión
+                    </DropdownMenuItem>
+                </SheetClose>
             </DropdownMenuContent>
         </DropdownMenu>
     );
