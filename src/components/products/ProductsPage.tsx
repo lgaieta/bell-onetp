@@ -24,7 +24,7 @@ async function ProductsPage(props: ProductsPageProps) {
                                 <p className="text-lg font-bold">
                                     ${product.price}
                                 </p>
-                                <AddToCartButton />
+                                <AddToCartButton productId={product.id} />
                             </form>
                         }
                     />
