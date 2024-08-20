@@ -109,17 +109,16 @@ async function Header() {
                                 </SheetClose>
                             ) : session.isAuth ? (
                                 <Fragment>
-                                    <Button
-                                        asChild
-                                        className="text-foreground w-full"
-                                    >
-                                        <Link
-                                            href="/carrito"
-                                            className="flex gap-2"
-                                        >
-                                            Mi carrito
-                                        </Link>
-                                    </Button>
+                                    <SheetClose asChild>
+                                        <Button asChild>
+                                            <Link
+                                                href="/carrito"
+                                                className="flex gap-2"
+                                            >
+                                                Mi carrito
+                                            </Link>
+                                        </Button>
+                                    </SheetClose>
                                     <ResponsiveHeaderUserButton />
                                 </Fragment>
                             ) : (

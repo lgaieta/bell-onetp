@@ -21,7 +21,7 @@ function ProductItem(props: ProductItemProps) {
             )}
             {...rest}
         >
-            <CardContent className="flex flex-col min-[400px]:flex-row justify-between items-center gap-6 min-[400px]:gap-2 p-10">
+            <CardContent className="flex flex-col min-[560px]:flex-row justify-between items-center gap-6 p-10">
                 <li className="flex flex-col gap-1 w-full">
                     <p className="text-lg font-bold">{product.name}</p>
                     <p className="text-muted-foreground max-w-sm">

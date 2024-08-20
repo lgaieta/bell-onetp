@@ -12,6 +12,6 @@ export async function addToCartAction(id: Product["id"]) {
     const validatedId = ProductIdSchema.parse(id);
     cookies().set(
         CART_COOKIE_NAME,
-        JSON.stringify([...productsIds, validatedId]),
+        JSON.stringify({ ...productsIds, [validatedId]: 1 }),
     );
 }

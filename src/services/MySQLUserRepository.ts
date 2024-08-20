@@ -17,7 +17,7 @@ class MySQLUserRepository implements UserRepository {
         password: User["password"],
     ): Promise<void> {
         const sql = "INSERT INTO user (username, password) VALUES (?, ?)";
-        await MySQLPool.get().query<ResultSetHeader>(sql, [username, password]);
+        await MySQLPool.query<ResultSetHeader>(sql, [username, password]);
     }
 
     update(newUser: User): Promise<User> {
@@ -31,9 +31,7 @@ class MySQLUserRepository implements UserRepository {
     async getByUsername(username: User["username"]): Promise<User> {
         const sql =
             "SELECT username, email, password, CP FROM user WHERE username = ?";
-        const [dbUser] = await MySQLPool.get().query<MySQLUser[]>(sql, [
-            username,
-        ]);
+        const [dbUser] = await MySQLPool.query<MySQLUser[]>(sql, [username]);
 
         if (!dbUser[0]) throw new NotFoundError("User not found.");
 

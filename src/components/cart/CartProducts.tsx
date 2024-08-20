@@ -1,28 +1,51 @@
+import { ProductsListWithAmount } from "@/components/cart/CartPage";
+import CartProductAmountSelector from "@/components/cart/CartProductAmountSelector";
 import CartProductsRemoveButton from "@/components/cart/CartProductsRemoveButton";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import ProductItem from "@/components/ui/product-item";
 import Product from "@/models/Product";
-import { Link } from "lucide-react";
+import Link from "next/link";
 
 type CartProductsProps = {
-    productsList: Product[];
+    products: ProductsListWithAmount;
+    onProductsChange: (newProducts: ProductsListWithAmount) => Promise<void>;
 };
 
 function CartProducts(props: CartProductsProps) {
+    const handleAmountChange = (id: Product["id"], newAmount: number) => {
+        const idList = props.products.map((p) => p.id);
+        const indexOfNewAmount = idList.indexOf(id);
+        const newProducts = [...props.products];
+        newProducts[indexOfNewAmount].amount = newAmount;
+        console.log(newProducts);
+        props.onProductsChange(newProducts);
+    };
+
     return (
         <Card className="flex justify-center w-full rounded-xl bg-muted/40 md:col-span-2 p-6 md:p-16">
-            {props.productsList.length > 0 ? (
+            {props.products.length > 0 ? (
                 <div className="flex flex-col gap-6 w-full">
-                    {props.productsList.map((product) => (
+                    {props.products.map((product) => (
                         <ProductItem
                             key={product.id}
                             product={product}
                             endContent={
-                                <CartProductsRemoveButton
-                                    productId={product.id}
-                                />
+                                <div className="flex gap-3">
+                                    <CartProductAmountSelector
+                                        amount={product.amount}
+                                        onAmountChange={(newAmount) =>
+                                            handleAmountChange(
+                                                product.id,
+                                                newAmount,
+                                            )
+                                        }
+                                    />
+                                    <CartProductsRemoveButton
+                                        productId={product.id}
+                                    />
+                                </div>
                             }
                         />
                     ))}

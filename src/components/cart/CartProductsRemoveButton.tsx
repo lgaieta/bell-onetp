@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import Product from "@/models/Product";
 import { removeFromCartAction } from "@/services/actions/removeFromCartAction";
+import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 
 type CartProductsRemoveButtonProps = {
@@ -23,8 +24,14 @@ type CartProductsRemoveButtonProps = {
 function CartProductsRemoveButton({
     productId,
 }: CartProductsRemoveButtonProps) {
+    const { toast } = useToast();
+    const router = useRouter();
     const action = async () => {
         await removeFromCartAction(productId);
+        router.refresh();
+        toast({
+            title: "Producto removido del carrito de compras exitosamente.",
+        });
     };
 
     return (

@@ -1,3 +1,4 @@
+import { ProductsListWithAmount } from "@/components/cart/CartPage";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -8,22 +9,27 @@ import {
 } from "@/components/ui/card";
 import Product from "@/models/Product";
 
-function CartSummary({ productsList }: { productsList: Product[] }) {
+function CartSummary({ products }: { products: ProductsListWithAmount }) {
     return (
         <div className="flex flex-col rounded-md w-full">
             <Card className="rounded-xl">
                 <CardHeader>
                     <CardTitle className="text-xl">Resumen</CardTitle>
                 </CardHeader>
-                <CardContent>
-                    {productsList.length > 0 ? (
-                        productsList.map((product) => (
+                <CardContent className="flex flex-col gap-6">
+                    {products.length > 0 ? (
+                        products.map((product) => (
                             <div
-                                className="flex justify-between w-full"
+                                className="flex justify-between items-start w-full"
                                 key={product.name}
                             >
                                 <p>{product.name}</p>
-                                <p>${product.price}</p>
+                                <div className="flex flex-col items-end gap-1">
+                                    <p>${product.price * product.amount}</p>
+                                    <p className="text-muted-foreground">
+                                        Unidades: {product.amount}
+                                    </p>
+                                </div>
                             </div>
                         ))
                     ) : (
@@ -32,13 +38,13 @@ function CartSummary({ productsList }: { productsList: Product[] }) {
                             para comenzar.
                         </p>
                     )}
-                    {productsList.length > 0 && (
+                    {products.length > 0 && (
                         <div className="flex justify-between w-full pt-4">
                             <p>Total</p>
                             <p>
                                 $
-                                {productsList.reduce(
-                                    (acc, el) => acc + +el.price,
+                                {products.reduce(
+                                    (acc, el) => acc + +el.price * el.amount,
                                     0,
                                 )}
                             </p>
@@ -49,7 +55,7 @@ function CartSummary({ productsList }: { productsList: Product[] }) {
                     <Button
                         className="w-full"
                         size="lg"
-                        disabled={productsList.length < 1}
+                        disabled={products.length < 1}
                     >
                         Comenzar la compra
                     </Button>

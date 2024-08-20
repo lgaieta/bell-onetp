@@ -34,7 +34,7 @@ class MySQLOrderRepository implements OrderRepository {
     async create(order: Order): Promise<Order> {
         const sql =
             "INSERT INTO orders (user_order, total_price, operation_state) VALUES (?, ?, ?)";
-        const [result] = await MySQLPool.get().query<ResultSetHeader>(sql, [
+        const [result] = await MySQLPool.query<ResultSetHeader>(sql, [
             order.username,
             order.totalPrice,
             order.operationState,
@@ -42,28 +42,26 @@ class MySQLOrderRepository implements OrderRepository {
 
         const relationshipValues = Object.entries(order.products).map(
             ([key, value]) => {
-                return `(${result.insertId}, ${MySQLPool.get().escape(
+                return `(${result.insertId}, ${MySQLPool.escape(
                     key,
-                )}, ${MySQLPool.get().escape(value)})`;
+                )}, ${MySQLPool.escape(value)})`;
             },
         );
 
         const relSql =
             "INSERT INTO orders_has_product (orders_idorder, product_idproduct, amount_prod) VALUES " +
             relationshipValues.join(",");
-        await MySQLPool.get().query<ResultSetHeader>(relSql);
+        await MySQLPool.query<ResultSetHeader>(relSql);
         return { ...order, id: result.insertId };
     }
 
     async delete(id: Order["id"]): Promise<void> {
         const deleteRelationshipSql =
             "DELETE FROM orders_has_product WHERE orders_idorder = ?";
-        await MySQLPool.get().query<ResultSetHeader>(deleteRelationshipSql, [
-            id,
-        ]);
+        await MySQLPool.query<ResultSetHeader>(deleteRelationshipSql, [id]);
 
         const sql = "DELETE FROM orders WHERE idorder = ?";
-        await MySQLPool.get().query<ResultSetHeader>(sql, [id]);
+        await MySQLPool.query<ResultSetHeader>(sql, [id]);
     }
 
     async updateState(
@@ -71,7 +69,7 @@ class MySQLOrderRepository implements OrderRepository {
         newState: Order["operationState"],
     ): Promise<void> {
         const sql = "UPDATE orders SET operation_state = ? WHERE idorder = ?";
-        const [result] = await MySQLPool.get().query<ResultSetHeader>(sql, [
+        const [result] = await MySQLPool.query<ResultSetHeader>(sql, [
             newState,
             id,
         ]);
@@ -80,7 +78,7 @@ class MySQLOrderRepository implements OrderRepository {
     async update(newOrder: Order): Promise<Order> {
         const sql =
             "UPDATE orders SET total_price = ?, operation_state = ? WHERE idorder = ?";
-        const [result] = await MySQLPool.get().query<ResultSetHeader>(sql, [
+        const [result] = await MySQLPool.query<ResultSetHeader>(sql, [
             newOrder.totalPrice,
             newOrder.operationState,
             newOrder.id,
@@ -88,9 +86,9 @@ class MySQLOrderRepository implements OrderRepository {
 
         const relationshipValues = Object.entries(newOrder.products).map(
             ([key, value]) => {
-                return `(${newOrder.id}, ${MySQLPool.get().escape(
+                return `(${newOrder.id}, ${MySQLPool.escape(
                     key,
-                )}, ${MySQLPool.get().escape(value)})`;
+                )}, ${MySQLPool.escape(value)})`;
             },
         );
 
@@ -98,7 +96,7 @@ class MySQLOrderRepository implements OrderRepository {
             "INSERT INTO orders_has_product (orders_idorder, product_idproduct, amount_prod) VALUES " +
             relationshipValues.join(",") +
             " ON DUPLICATE KEY UPDATE orders_idorder=VALUES(orders_idorder), product_idproduct = VALUES(product_idproduct), amount_prod = VALUES(amount_prod)";
-        await MySQLPool.get().query<ResultSetHeader>(relSql);
+        await MySQLPool.query<ResultSetHeader>(relSql);
 
         return newOrder;
     }
@@ -109,9 +107,10 @@ class MySQLOrderRepository implements OrderRepository {
             JOIN product AS p ON oh.product_idproduct = p.idproduct
             WHERE oh.orders_idorder = ?;
         `;
-        const [dbProductsOfOrder] = await MySQLPool.get().query<
-            MySQLDBProduct[]
-        >(sql, [orderId]);
+        const [dbProductsOfOrder] = await MySQLPool.query<MySQLDBProduct[]>(
+            sql,
+            [orderId],
+        );
 
         const products = dbProductsOfOrder.map((dbProduct) =>
             adaptProductMySQL(dbProduct),
@@ -122,12 +121,8 @@ class MySQLOrderRepository implements OrderRepository {
 
     async getByUsername(username: User["username"]): Promise<Order[]> {
         const sql = "SELECT * FROM orders WHERE user_order = ?";
-        const [dbOrders] = await MySQLPool.get().query<DBOrder[]>(sql, [
-            username,
-        ]);
-        const [dbOrderHasProducts] = await MySQLPool.get().query<
-            DBOrderHasProduct[]
-        >(
+        const [dbOrders] = await MySQLPool.query<DBOrder[]>(sql, [username]);
+        const [dbOrderHasProducts] = await MySQLPool.query<DBOrderHasProduct[]>(
             "SELECT * FROM orders_has_product JOIN orders ON orders.idorder = orders_has_product.orders_idorder AND orders.user_order = ?",
             [username],
         );
@@ -137,25 +132,26 @@ class MySQLOrderRepository implements OrderRepository {
 
     async getList(): Promise<Order[]> {
         const sql = "SELECT * FROM orders";
-        const [dbOrders] = await MySQLPool.get().query<DBOrder[]>(sql);
+        const [dbOrders] = await MySQLPool.query<DBOrder[]>(sql);
 
-        const [dbOrderHasProducts] = await MySQLPool.get().query<
-            DBOrderHasProduct[]
-        >("SELECT product_idproduct FROM orders_has_product");
+        const [dbOrderHasProducts] = await MySQLPool.query<DBOrderHasProduct[]>(
+            "SELECT product_idproduct FROM orders_has_product",
+        );
 
         return this.formatRelationship({ dbOrders, dbOrderHasProducts });
     }
 
     async getById(id: Order["id"]): Promise<Order> {
         const sql = "SELECT * FROM orders WHERE idorder = ?";
-        const [result] = await MySQLPool.get().query<DBOrder[]>(sql, [id]);
+        const [result] = await MySQLPool.query<DBOrder[]>(sql, [id]);
         if (result.length < 1)
             throw new NotFoundError(ApiStrings.orderNotFoundMessage);
 
         const adaptedOrder = this.adaptOrder(result[0]);
-        const [productsResult] = await MySQLPool.get().query<
-            DBOrderHasProduct[]
-        >("SELECT * FROM orders_has_product WHERE orders_idorder = ?", [id]);
+        const [productsResult] = await MySQLPool.query<DBOrderHasProduct[]>(
+            "SELECT * FROM orders_has_product WHERE orders_idorder = ?",
+            [id],
+        );
 
         const adaptedProducts = this.adaptOrderHasProduct(productsResult);
 

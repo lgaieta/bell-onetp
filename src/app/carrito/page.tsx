@@ -1,10 +1,7 @@
 import CartPage from "@/components/cart/CartPage";
 import { CART_COOKIE_NAME } from "@/lib/constants";
-import Product from "@/models/Product";
 import MySQLProductRepository from "@/services/MySQLProductRepository";
-import { ProductIdSchema } from "@/services/ProductSchema";
 import { Metadata } from "next";
-import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
@@ -14,45 +11,22 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const cartProductsIdsStrings = JSON.parse(
-        cookies().get(CART_COOKIE_NAME)?.value || "[]",
+    const savedCartProducts = JSON.parse(
+        cookies().get(CART_COOKIE_NAME)?.value || "{}",
     );
 
-    if (cartProductsIdsStrings.length < 1)
-        return (
-            <CartPage
-                productsList={[]}
-                onRemoveProductFromCart={handleRemoveProductFromCart}
-            />
-        );
+    if (Object.keys(savedCartProducts).length < 1)
+        return <CartPage products={[]} />;
 
     const productRepository = new MySQLProductRepository();
     const productsList = await productRepository.getByIdList(
-        cartProductsIdsStrings,
+        Object.keys(savedCartProducts),
     );
 
-    async function handleRemoveProductFromCart(id: Product["id"], _: FormData) {
-        "use server";
-        const productsIds = JSON.parse(
-            cookies().get(CART_COOKIE_NAME)?.value || "[]",
-        );
+    const products = productsList.map((product) => ({
+        ...product,
+        amount: savedCartProducts[product.id],
+    }));
 
-        const validatedId = ProductIdSchema.parse(id);
-
-        cookies().set(
-            CART_COOKIE_NAME,
-            JSON.stringify(
-                productsIds.filter((itemId: string) => itemId !== validatedId),
-            ),
-        );
-
-        revalidatePath("/carrito");
-    }
-
-    return (
-        <CartPage
-            productsList={productsList}
-            onRemoveProductFromCart={handleRemoveProductFromCart}
-        />
-    );
+    return <CartPage products={products} />;
 }
