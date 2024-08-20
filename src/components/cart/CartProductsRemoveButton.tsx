@@ -56,7 +56,7 @@ function CartProductsRemoveButton({
                     <form action={action}>
                         <AlertDialogAction
                             type="submit"
-                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            className="w-full bg-destructive text-destructive-foreground md:w-fit hover:bg-destructive/90"
                         >
                             Eliminar
                         </AlertDialogAction>
