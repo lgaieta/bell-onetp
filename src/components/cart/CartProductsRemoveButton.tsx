@@ -19,16 +19,17 @@ import { MdDelete } from "react-icons/md";
 
 type CartProductsRemoveButtonProps = {
     productId: Product["id"];
+    onRemove: () => void;
 };
 
 function CartProductsRemoveButton({
     productId,
+    onRemove,
 }: CartProductsRemoveButtonProps) {
     const { toast } = useToast();
-    const router = useRouter();
     const action = async () => {
         await removeFromCartAction(productId);
-        router.refresh();
+        onRemove();
         toast({
             title: "Producto removido del carrito de compras exitosamente.",
         });
