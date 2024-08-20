@@ -1,0 +1,63 @@
+"use client";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import Product from "@/models/Product";
+import { removeFromCartAction } from "@/services/actions/removeFromCartAction";
+import { MdDelete } from "react-icons/md";
+
+type CartProductsRemoveButtonProps = {
+    productId: Product["id"];
+};
+
+function CartProductsRemoveButton({
+    productId,
+}: CartProductsRemoveButtonProps) {
+    const action = async () => {
+        await removeFromCartAction(productId);
+    };
+
+    return (
+        <AlertDialog>
+            <AlertDialogTrigger asChild>
+                <Button variant="destructive" size="icon">
+                    <MdDelete size={24} />
+                </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>
+                        ¿Quieres eliminar este producto del carrito?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                        Podrás agregarlo nuevamente desde la página de
+                        productos.
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <form action={action}>
+                        <AlertDialogAction
+                            type="submit"
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        >
+                            Eliminar
+                        </AlertDialogAction>
+                    </form>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    );
+}
+
+export default CartProductsRemoveButton;

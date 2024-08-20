@@ -1,4 +1,4 @@
-import CartPage from "@/components/CartPage";
+import CartPage from "@/components/cart/CartPage";
 import { CART_COOKIE_NAME } from "@/lib/constants";
 import Product from "@/models/Product";
 import MySQLProductRepository from "@/services/MySQLProductRepository";
