@@ -1,4 +1,5 @@
 import { ProductsListWithAmount } from "@/components/cart/CartPage";
+import CartPaymentButton from "@/components/cart/CartPaymentButton";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -7,7 +8,10 @@ import {
     CardContent,
     CardFooter,
 } from "@/components/ui/card";
-import Product from "@/models/Product";
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+import { SiMercadopago } from "react-icons/si";
+
+initMercadoPago(process.env.NEXT_PUBLIC_MPAGO_PUBLIC_KEY!);
 
 function CartSummary({ products }: { products: ProductsListWithAmount }) {
     return (
@@ -51,14 +55,9 @@ function CartSummary({ products }: { products: ProductsListWithAmount }) {
                         </div>
                     )}
                 </CardContent>
-                <CardFooter className="flex justify-between">
-                    <Button
-                        className="w-full"
-                        size="lg"
-                        disabled={products.length < 1}
-                    >
-                        Comenzar la compra
-                    </Button>
+                <CardFooter className="flex justify-center">
+                    <Button className="w-full">Comenzar la compra</Button>
+                    {/* <CartPaymentButton products={products} /> */}
                 </CardFooter>
             </Card>
         </div>

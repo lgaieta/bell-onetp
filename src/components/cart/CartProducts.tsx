@@ -23,6 +23,10 @@ function CartProducts(props: CartProductsProps) {
         props.onProductsChange(newProducts);
     };
 
+    const handleRemoveProduct = (id: Product["id"]) => {
+        props.onProductsChange(props.products.filter((p) => p.id !== id));
+    };
+
     return (
         <Card className="flex justify-center w-full rounded-xl bg-muted/40 md:col-span-2 p-6 md:p-16">
             {props.products.length > 0 ? (
@@ -44,6 +48,9 @@ function CartProducts(props: CartProductsProps) {
                                     />
                                     <CartProductsRemoveButton
                                         productId={product.id}
+                                        onRemove={() =>
+                                            handleRemoveProduct(product.id)
+                                        }
                                     />
                                 </div>
                             }
