@@ -56,7 +56,8 @@ function CartSummary({ products }: { products: ProductsListWithAmount }) {
                     )}
                 </CardContent>
                 <CardFooter className="flex justify-center">
-                    <CartPaymentButton products={products} />
+                    <Button className="w-full">Comenzar la compra</Button>
+                    {/* <CartPaymentButton products={products} /> */}
                 </CardFooter>
             </Card>
         </div>
