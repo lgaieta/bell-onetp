@@ -1,19 +1,24 @@
-import Image from "next/image";
+import Link from "next/link";
 
 type HomePageProps = {};
 
 async function HomePage(props: HomePageProps) {
     return (
         <main className="flex flex-col justify-center w-full ">
-            <div>
-                <Image
-                    src="/stock.jpeg"
-                    width={700}
-                    height={700}
-                    priority={true}
-                    alt="Stock image"
-                    className="w-full object-cover"
-                />
+            <div className="bg-foreground py-32 px-4 text-white text-center ">
+                <h2 className="text-3xl font-semibold mb-4">
+                    Explora Nuestros Productos
+                </h2>
+                <p className="text-lg mb-6">
+                    Encuentra el equipo perfecto para tus aventuras al aire
+                    libre y disfruta de la naturaleza como nunca antes.
+                </p>
+                <Link
+                    href="/productos"
+                    className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600"
+                >
+                    Ver Productos
+                </Link>
             </div>
 
             <section className="text-foreground py-16 px-4">
