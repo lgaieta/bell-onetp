@@ -1,18 +1,36 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+const LOCAL_URL = "http://localhost:3000";
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+test("Products list page and add to cart button to cookie", async ({
+    page,
+    context,
+}) => {
+    await page.goto(LOCAL_URL + "/productos");
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+    const listItem = page.getByRole("listitem").first();
+    const list = page.getByRole("list").filter({ has: listItem });
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+    await expect(list).toBeVisible();
+    await expect(listItem).toBeVisible();
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+    const addToCartButton = page.getByLabel("Añadir al carrito").first();
+
+    await addToCartButton.click();
+    await expect
+        .poll(
+            async () => {
+                const expectedCookieName = "cart";
+                const cookies = await context.cookies();
+                return cookies.find(
+                    (cookie) => cookie.name === expectedCookieName,
+                );
+            },
+            {
+                intervals: [1_000, 2_000, 10_000],
+                message: "waiting for cart cookie save",
+                timeout: 30000,
+            },
+        )
+        .toBeTruthy();
 });
