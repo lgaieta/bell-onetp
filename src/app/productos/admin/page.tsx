@@ -1,7 +1,7 @@
 import ProductsAdminPage from "@/components/ProductsAdminPage";
 import Product from "@/models/Product";
-import MySQLProductRepository from "@/services/MySQLProductRepository";
-import { ProductIdSchema } from "@/services/ProductSchema";
+import MySQLProductRepository from "@/services/repositories/MySQLProductRepository";
+import { ProductIdSchema } from "@/services/schemas/ProductSchema";
 import SessionManager from "@/services/SessionManager";
 import { SessionType } from "@/services/SessionPayload";
 import { Metadata } from "next";

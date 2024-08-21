@@ -1,6 +1,6 @@
 import CartPage from "@/components/cart/CartPage";
 import { CART_COOKIE_NAME } from "@/lib/constants";
-import MySQLProductRepository from "@/services/MySQLProductRepository";
+import MySQLProductRepository from "@/services/repositories/MySQLProductRepository";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { MercadoPagoConfig, Preference } from "mercadopago";

@@ -2,8 +2,8 @@ import ApiStrings from "@/app/_api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
-import MySQLOrderRepository from "@/services/MySQLOrderRepository";
-import { UserUsernameSchema } from "@/services/UserSchema";
+import MySQLOrderRepository from "@/services/repositories/MySQLOrderRepository";
+import { UserUsernameSchema } from "@/services/schemas/UserSchema";
 import { NextRequest } from "next/server";
 import { ZodError } from "zod";
 

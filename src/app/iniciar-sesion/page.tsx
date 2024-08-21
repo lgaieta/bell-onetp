@@ -1,9 +1,12 @@
 import LoginPage from "@/components/LoginPage";
-import MySQLUserRepository from "@/services/MySQLUserRepository";
+import MySQLUserRepository from "@/services/repositories/MySQLUserRepository";
 import PasswordEncrypter from "@/services/PasswordEncrypter";
 import SessionManager from "@/services/SessionManager";
 import { SessionType } from "@/services/SessionPayload";
-import { UserUsernameSchema, UserPasswordSchema } from "@/services/UserSchema";
+import {
+    UserUsernameSchema,
+    UserPasswordSchema,
+} from "@/services/schemas/UserSchema";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 

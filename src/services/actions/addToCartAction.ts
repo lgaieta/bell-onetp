@@ -2,7 +2,7 @@
 
 import { CART_COOKIE_NAME } from "@/lib/constants";
 import Product from "@/models/Product";
-import { ProductIdSchema } from "@/services/ProductSchema";
+import { ProductIdSchema } from "@/services/schemas/ProductSchema";
 import { cookies } from "next/headers";
 
 export async function addToCartAction(id: Product["id"]) {

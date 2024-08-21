@@ -1,12 +1,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import MySQLOrderRepository from "@/services/MySQLOrderRepository";
+import MySQLOrderRepository from "@/services/repositories/MySQLOrderRepository";
 import Order from "@/models/Order";
 import {
     OrderIdSchema,
     OrderOperationStateSchema,
-} from "@/services/OrderSchema";
+} from "@/services/schemas/OrderSchema";
 
 export async function editOrderStateAction(
     id: Order["id"],

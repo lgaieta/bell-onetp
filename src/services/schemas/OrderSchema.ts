@@ -1,6 +1,6 @@
 import { z } from "zod";
 import OrderState from "@/models/OrderState";
-import { UserUsernameSchema } from "@/services/UserSchema";
+import { UserUsernameSchema } from "@/services/schemas/UserSchema";
 
 export const OrderIdSchema = z.coerce.number().int().positive();
 export const OrderOperationStateSchema = z.nativeEnum(OrderState);

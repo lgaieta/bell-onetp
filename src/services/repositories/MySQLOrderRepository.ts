@@ -4,11 +4,11 @@ import Order from "@/models/Order";
 import OrderRepository from "@/models/OrderRepository";
 import OrderState from "@/models/OrderState";
 import User from "@/models/User";
-import MySQLPool from "@/services/MySQLPool";
+import MySQLPool from "@/services/repositories/MySQLPool";
 import {
     adaptProductMySQL,
     MySQLDBProduct,
-} from "@/services/MySQLProductRepository";
+} from "@/services/repositories/MySQLProductRepository";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 interface DBOrder extends RowDataPacket {
