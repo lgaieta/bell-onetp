@@ -1,5 +1,4 @@
 import { ProductsListWithAmount } from "@/components/cart/CartPage";
-import CartPaymentButton from "@/components/cart/CartPaymentButton";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -8,8 +7,7 @@ import {
     CardContent,
     CardFooter,
 } from "@/components/ui/card";
-import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-import { SiMercadopago } from "react-icons/si";
+import { initMercadoPago } from "@mercadopago/sdk-react";
 
 initMercadoPago(process.env.NEXT_PUBLIC_MPAGO_PUBLIC_KEY!);
 
@@ -20,22 +18,24 @@ function CartSummary({ products }: { products: ProductsListWithAmount }) {
                 <CardHeader>
                     <CardTitle className="text-xl">Resumen</CardTitle>
                 </CardHeader>
-                <CardContent className="flex flex-col gap-6">
+                <CardContent className="flex flex-col gap-4">
                     {products.length > 0 ? (
-                        products.map((product) => (
-                            <div
-                                className="flex justify-between items-start w-full"
-                                key={product.name}
-                            >
-                                <p>{product.name}</p>
-                                <div className="flex flex-col items-end gap-1">
-                                    <p>${product.price * product.amount}</p>
-                                    <p className="text-muted-foreground">
-                                        Unidades: {product.amount}
-                                    </p>
+                        <ul className="flex flex-col gap-4">
+                            {products.map((product) => (
+                                <div
+                                    className="flex justify-between items-start w-full"
+                                    key={product.name}
+                                >
+                                    <p>{product.name}</p>
+                                    <div className="flex flex-col items-end gap-1">
+                                        <p>${product.price * product.amount}</p>
+                                        <p className="text-muted-foreground">
+                                            Unidades: {product.amount}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))
+                            ))}
+                        </ul>
                     ) : (
                         <p className="text-muted-foreground">
                             Agrega al menos un producto a tu carrito de compras
