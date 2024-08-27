@@ -44,7 +44,18 @@ const apiStrings = {
     },
 };
 
-const esStrings = {};
+const esStrings = {
+    user: {
+        login: {
+            page_title: "Iniciar sesión - bell",
+            empty_fields_error: "Los campos no pueden estar vacíos.",
+            invalid_email_format: "El email es inválido.",
+        },
+    },
+    home: {
+        page_title: "Inicio - bell",
+    },
+};
 
 const strings = { ...esStrings, api: apiStrings };
 
