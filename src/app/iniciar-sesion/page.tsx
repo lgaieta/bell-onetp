@@ -1,4 +1,4 @@
-import LoginPage from "@/components/LoginPage";
+import LoginPage from "@/components/login/LoginPage";
 import MySQLUserRepository from "@/services/MySQLUserRepository";
 import PasswordEncrypter from "@/services/PasswordEncrypter";
 import SessionManager from "@/services/SessionManager";
