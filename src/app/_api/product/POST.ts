@@ -1,8 +1,8 @@
 import ApiStrings from "@/app/_api/ApiStrings";
 import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";
-import MySQLProductRepository from "@/services/MySQLProductRepository";
-import { ProductSchema } from "@/services/ProductSchema";
+import MySQLProductRepository from "@/services/repositories/MySQLProductRepository";
+import { ProductSchema } from "@/services/schemas/ProductSchema";
 import { NextRequest } from "next/server";
 import { ZodError } from "zod";
 

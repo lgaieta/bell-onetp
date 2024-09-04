@@ -2,8 +2,8 @@ import ApiStrings from "@/app/_api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";
-import MySQLProductRepository from "@/services/MySQLProductRepository";
-import { ProductSchema } from "@/services/ProductSchema";
+import MySQLProductRepository from "@/services/repositories/MySQLProductRepository";
+import { ProductSchema } from "@/services/schemas/ProductSchema";
 import { ZodError } from "zod";
 
 export async function PUT(request: Request) {

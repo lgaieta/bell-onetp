@@ -2,10 +2,10 @@ import ApiStrings from "@/app/_api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
-import { OrderIdSchema } from "@/services/OrderSchema";
+import { OrderIdSchema } from "@/services/schemas/OrderSchema";
 import { ZodError } from "zod";
 import { NextRequest } from "next/server";
-import MySQLOrderRepository from "@/services/MySQLOrderRepository";
+import MySQLOrderRepository from "@/services/repositories/MySQLOrderRepository";
 
 export async function DELETE(request: NextRequest) {
     try {

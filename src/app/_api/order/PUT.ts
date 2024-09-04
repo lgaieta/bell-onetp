@@ -2,10 +2,10 @@ import ApiStrings from "@/app/_api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
-import { OrderSchema } from "@/services/OrderSchema";
+import { OrderSchema } from "@/services/schemas/OrderSchema";
 import { ZodError } from "zod";
 import { NextRequest } from "next/server";
-import MySQLOrderRepository from "@/services/MySQLOrderRepository";
+import MySQLOrderRepository from "@/services/repositories/MySQLOrderRepository";
 
 export async function PUT(request: NextRequest) {
     try {

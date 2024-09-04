@@ -1,6 +1,6 @@
 import Product from "@/models/Product";
 import ProductRepository from "@/models/ProductRepository";
-import MySQLPool from "@/services/MySQLPool";
+import MySQLPool from "@/services/repositories/MySQLPool";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 export interface MySQLDBProduct extends RowDataPacket {

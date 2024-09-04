@@ -1,5 +1,5 @@
 import ProductsPage from "@/components/products/ProductsPage";
-import MySQLProductRepository from "@/services/MySQLProductRepository";
+import MySQLProductRepository from "@/services/repositories/MySQLProductRepository";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

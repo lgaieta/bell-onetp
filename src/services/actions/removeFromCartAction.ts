@@ -2,7 +2,7 @@
 
 import { CART_COOKIE_NAME } from "@/lib/constants";
 import Product from "@/models/Product";
-import { ProductIdSchema } from "@/services/ProductSchema";
+import { ProductIdSchema } from "@/services/schemas/ProductSchema";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
