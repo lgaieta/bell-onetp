@@ -56,6 +56,9 @@ const esStrings = {
                 "La contraseña o el nombre de usuario no son válidos.",
             unexpected_error: "Ocurrió un error inesperado.",
         },
+        register: {
+            already_exists: "El usuario ya existe",
+        },
     },
     home: {
         page_title: "Inicio - bell",
