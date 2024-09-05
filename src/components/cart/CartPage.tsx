@@ -48,7 +48,7 @@ function CartPage(props: CartPageProps) {
     };
 
     return (
-        <main className="flex w-full flex-col gap-16 items-center py-16 container">
+        <main className="flex w-full flex-col gap-16 items-center py-8 container">
             <header>
                 <h1 className="text-2xl font-bold sm:text-4xl">
                     Carrito de compras
