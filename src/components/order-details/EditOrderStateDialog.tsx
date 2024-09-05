@@ -1,4 +1,4 @@
-import { editOrderStateAction } from "@/app/pedidos/editOrderStateAction";
+import { editOrderStateAction } from "@/services/actions/editOrderStateAction";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
