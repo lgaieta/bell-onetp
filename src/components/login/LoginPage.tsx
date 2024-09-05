@@ -1,10 +1,6 @@
 import LoginForm from "@/components/login/LoginForm";
 
-type LoginPageProps = {
-    formAction: (formData: FormData) => void;
-};
-
-function LoginPage(props: LoginPageProps) {
+function LoginPage() {
     return (
         <main className="flex flex-col gap-6 md:gap-12 justify-center items-center w-full py-16 px-4 md:py-24">
             <header className="flex justify-center">

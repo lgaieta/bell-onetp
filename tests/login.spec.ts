@@ -32,7 +32,7 @@ test("Invalid email format shows error", async ({ page }) => {
     await page.fill('input[name="username"]', "invalid-email");
     await page.click('button[type="submit"]');
     await expect(
-        page.getByText(strings.user.login.invalid_email_format),
+        page.getByText(strings.user.login.invalid_username),
     ).toBeVisible();
 });
 

@@ -1,21 +1,27 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { loginAction } from "@/services/actions/loginAction";
+import { useFormState } from "react-dom";
 
 function LoginForm() {
-    const errors = {
-        username: "El usuario ya existe.",
-    }; 
+    const [state, formAction] = useFormState<LoginFormState, FormData>(
+        loginAction,
+        {
+            errors: {},
+        },
+    );
+    const { errors } = state;
 
     return (
-        <form className="grid gap-5 w-full max-w-sm">
+        <form className="grid gap-5 w-full max-w-sm" action={formAction}>
             <div className="grid gap-2">
                 <Label htmlFor="username">Usuario</Label>
                 <Input
                     id="username"
                     name="username"
                     placeholder="Por ejemplo: tellodev"
-                    required
                     className={errors.username && "border-destructive"}
                 />
                 {errors.username && (
@@ -30,14 +36,30 @@ function LoginForm() {
                     id="password"
                     name="password"
                     placeholder="••••••••"
-                    required
                     minLength={6}
                     type="password"
+                    className={errors.username && "border-destructive"}
                 />
+                {errors.password && (
+                    <p className="text-sm text-destructive">
+                        {errors.password}
+                    </p>
+                )}
             </div>
             <Button type="submit">Ingresar</Button>
+            {errors.general && (
+                <p className="text-sm text-destructive">{errors.general}</p>
+            )}
         </form>
     );
 }
+
+export type LoginFormState = {
+    errors: {
+        general?: string;
+        username?: string;
+        password?: string;
+    };
+};
 
 export default LoginForm;

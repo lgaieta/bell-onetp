@@ -49,7 +49,12 @@ const esStrings = {
         login: {
             page_title: "Iniciar sesión - bell",
             empty_fields_error: "Los campos no pueden estar vacíos.",
-            invalid_email_format: "El email es inválido.",
+            invalid_username: "El usuario es inválido.",
+            invalid_password: "La contraseña no es válida.",
+            user_not_found: "El usuario no existe.",
+            invalid_credentials:
+                "La contraseña o el nombre de usuario no son válidos.",
+            unexpected_error: "Ocurrió un error inesperado.",
         },
     },
     home: {
