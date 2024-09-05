@@ -1,4 +1,4 @@
-import ApiStrings from "@/app/_api/ApiStrings";
+import strings from "@/lib/strings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
@@ -19,18 +19,18 @@ export async function PUT(request: NextRequest) {
 
         return Response.json(validatedOrder);
     } catch (error) {
-        console.error(ApiStrings.consoleOrderPutError, error);
+        console.error(strings.api.order.console_order_put_error, error);
 
         if (error instanceof ZodError)
             return generateResponseError({
-                message: ApiStrings.invalidFieldsMessage,
+                message: strings.api.common.invalid_fields_message,
             });
 
         if (error instanceof NotFoundError)
             return generateResponseError({ message: error.message });
 
         return generateResponseError({
-            message: ApiStrings.orderUpdateErrorMessage,
+            message: strings.api.order.order_update_error_message,
         });
     }
 }

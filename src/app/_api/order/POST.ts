@@ -1,4 +1,4 @@
-import ApiStrings from "@/app/_api/ApiStrings";
+import strings from "@/lib/strings";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
 import OrderState from "@/models/OrderState";
@@ -20,16 +20,16 @@ export async function POST(request: NextRequest) {
 
         return Response.json(validatedOrder);
     } catch (error) {
-        console.error(ApiStrings.consoleOrderPostError, error);
+        console.error(strings.api.order.console_order_post_error, error);
 
         if (error instanceof ZodError) {
             return generateResponseError({
-                message: ApiStrings.invalidFieldsMessage,
+                message: strings.api.common.invalid_fields_message,
             });
         }
 
         return generateResponseError({
-            message: ApiStrings.orderCreationErrorMessage,
+            message: strings.api.order.order_creation_error_message,
         });
     }
 }

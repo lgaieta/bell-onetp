@@ -1,4 +1,4 @@
-import ApiStrings from "@/app/_api/ApiStrings";
+import strings from "@/lib/strings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
@@ -10,7 +10,9 @@ import { ZodError } from "zod";
 export async function GET(request: NextRequest) {
     try {
         const searchParams = request.nextUrl.searchParams;
-        const queryUsername = searchParams.get(ApiStrings.userUsernameKey);
+        const queryUsername = searchParams.get(
+            strings.api.user.user_username_key,
+        );
 
         const validatedUsername = UserUsernameSchema.parse(queryUsername);
 
@@ -21,16 +23,16 @@ export async function GET(request: NextRequest) {
     } catch (error) {
         if (error instanceof ZodError)
             return generateResponseError({
-                message: ApiStrings.invalidIdMessage,
+                message: strings.api.common.invalid_id_message,
             });
 
         if (error instanceof NotFoundError)
             return generateResponseError({ message: error.message });
 
-        console.error(ApiStrings.consoleOrderFetchError, error);
+        console.error(strings.api.order.console_order_fetch_error, error);
 
         return generateResponseError({
-            message: ApiStrings.orderFetchErrorMessage,
+            message: strings.api.order.order_fetch_error_message,
         });
     }
 }

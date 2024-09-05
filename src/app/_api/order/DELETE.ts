@@ -1,4 +1,3 @@
-import ApiStrings from "@/app/_api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
@@ -6,6 +5,7 @@ import { OrderIdSchema } from "@/services/schemas/OrderSchema";
 import { ZodError } from "zod";
 import { NextRequest } from "next/server";
 import MySQLOrderRepository from "@/services/repositories/MySQLOrderRepository";
+import strings from "@/lib/strings";
 
 export async function DELETE(request: NextRequest) {
     try {
@@ -18,18 +18,18 @@ export async function DELETE(request: NextRequest) {
 
         return Response.json({ success: true });
     } catch (error) {
-        console.error(ApiStrings.consoleOrderDeleteError, error);
+        console.error(strings.api.order.console_order_delete_error, error);
 
         if (error instanceof ZodError)
             return generateResponseError({
-                message: ApiStrings.invalidIdMessage,
+                message: strings.api.common.invalid_id_message,
             });
 
         if (error instanceof NotFoundError)
             return generateResponseError({ message: error.message });
 
         return generateResponseError({
-            message: ApiStrings.orderDeleteErrorMessage,
+            message: strings.api.order.order_delete_error_message,
         });
     }
 }
