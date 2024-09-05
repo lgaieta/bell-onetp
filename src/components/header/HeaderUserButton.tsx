@@ -1,6 +1,6 @@
 "use client";
 
-import { logoutAction } from "@/app/iniciar-sesion/logoutAction";
+import { logoutAction } from "@/services/actions/logoutAction";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,

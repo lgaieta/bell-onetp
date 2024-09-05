@@ -10,7 +10,7 @@ import {
     TableCell,
 } from "@/components/ui/table";
 import Link from "next/link";
-import { deleteProductAction } from "@/app/productos/admin/deleteProductAction";
+import { deleteProductAction } from "@/services/actions/deleteProductAction";
 
 type ProductsAdminPageProps = {
     products: Product[];

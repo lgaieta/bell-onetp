@@ -1,8 +1,8 @@
-import ApiStrings from "@/app/_api/ApiStrings";
+import strings from "@/lib/strings";
 import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";
-import MySQLProductRepository from "@/services/MySQLProductRepository";
-import { ProductSchema } from "@/services/ProductSchema";
+import MySQLProductRepository from "@/services/repositories/MySQLProductRepository";
+import { ProductSchema } from "@/services/schemas/ProductSchema";
 import { NextRequest } from "next/server";
 import { ZodError } from "zod";
 
@@ -16,15 +16,15 @@ export async function POST(request: NextRequest) {
 
         return Response.json(requestJson);
     } catch (error) {
-        console.error(ApiStrings.consoleProductPostError, error);
+        console.error(strings.api.product.console_product_post_error, error);
 
         if (error instanceof ZodError)
             return generateResponseError({
-                message: ApiStrings.invalidFieldsMessage,
+                message: strings.api.common.invalid_fields_message,
             });
 
         return generateResponseError({
-            message: ApiStrings.productCreationErrorMessage,
+            message: strings.api.product.product_creation_error_message,
         });
     }
 }

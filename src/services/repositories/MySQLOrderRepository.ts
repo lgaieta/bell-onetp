@@ -1,14 +1,14 @@
-import ApiStrings from "@/app/_api/ApiStrings";
 import NotFoundError from "@/lib/NotFoundError";
+import strings from "@/lib/strings";
 import Order from "@/models/Order";
 import OrderRepository from "@/models/OrderRepository";
 import OrderState from "@/models/OrderState";
 import User from "@/models/User";
-import MySQLPool from "@/services/MySQLPool";
+import MySQLPool from "@/services/repositories/MySQLPool";
 import {
     adaptProductMySQL,
     MySQLDBProduct,
-} from "@/services/MySQLProductRepository";
+} from "@/services/repositories/MySQLProductRepository";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 interface DBOrder extends RowDataPacket {
@@ -145,7 +145,7 @@ class MySQLOrderRepository implements OrderRepository {
         const sql = "SELECT * FROM orders WHERE idorder = ?";
         const [result] = await MySQLPool.query<DBOrder[]>(sql, [id]);
         if (result.length < 1)
-            throw new NotFoundError(ApiStrings.orderNotFoundMessage);
+            throw new NotFoundError(strings.api.order.order_not_found_message);
 
         const adaptedOrder = this.adaptOrder(result[0]);
         const [productsResult] = await MySQLPool.query<DBOrderHasProduct[]>(

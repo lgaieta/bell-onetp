@@ -1,7 +1,7 @@
 import NotFoundError from "@/lib/NotFoundError";
 import User from "@/models/User";
 import UserRepository from "@/models/UserRepository";
-import MySQLPool from "@/services/MySQLPool";
+import MySQLPool from "@/services/repositories/MySQLPool";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 interface MySQLUser extends RowDataPacket {

@@ -1,7 +1,7 @@
 import OrderDetailsPage from "@/components/order-details/OrderDetailsPage";
 import OrderRepository from "@/models/OrderRepository";
-import MySQLOrderRepository from "@/services/MySQLOrderRepository";
-import { OrderIdSchema } from "@/services/OrderSchema";
+import MySQLOrderRepository from "@/services/repositories/MySQLOrderRepository";
+import { OrderIdSchema } from "@/services/schemas/OrderSchema";
 import SessionManager from "@/services/SessionManager";
 import { SessionType } from "@/services/SessionPayload";
 import { Metadata } from "next";

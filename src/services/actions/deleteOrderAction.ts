@@ -2,11 +2,11 @@
 
 import Order from "@/models/Order";
 import OrderState from "@/models/OrderState";
-import MySQLOrderRepository from "@/services/MySQLOrderRepository";
+import MySQLOrderRepository from "@/services/repositories/MySQLOrderRepository";
 import {
     OrderIdSchema,
     OrderOperationStateSchema,
-} from "@/services/OrderSchema";
+} from "@/services/schemas/OrderSchema";
 import { revalidatePath } from "next/cache";
 
 export async function deleteOrderAction(id: Order["id"], _: FormData) {

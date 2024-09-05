@@ -1,4 +1,4 @@
-import { deleteOrderAction } from "@/app/pedidos/deleteOrderAction";
+import { deleteOrderAction } from "@/services/actions/deleteOrderAction";
 import {
     AlertDialog,
     AlertDialogAction,

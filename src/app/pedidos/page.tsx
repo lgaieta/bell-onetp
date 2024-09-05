@@ -1,5 +1,5 @@
 import OrdersAdminPage from "@/components/orders-admin/OrdersAdminPage";
-import MySQLOrderRepository from "@/services/MySQLOrderRepository";
+import MySQLOrderRepository from "@/services/repositories/MySQLOrderRepository";
 import SessionManager from "@/services/SessionManager";
 import { SessionType } from "@/services/SessionPayload";
 import { Metadata } from "next";

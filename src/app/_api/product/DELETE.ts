@@ -1,9 +1,9 @@
-import ApiStrings from "@/app/_api/ApiStrings";
+import strings from "@/lib/strings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";
-import MySQLProductRepository from "@/services/MySQLProductRepository";
-import { ProductIdSchema } from "@/services/ProductSchema";
+import MySQLProductRepository from "@/services/repositories/MySQLProductRepository";
+import { ProductIdSchema } from "@/services/schemas/ProductSchema";
 import { ZodError } from "zod";
 
 export async function DELETE(request: Request) {
@@ -18,18 +18,18 @@ export async function DELETE(request: Request) {
 
         return Response.json({ success: true });
     } catch (error) {
-        console.error(ApiStrings.consoleProductDeleteError, error);
+        console.error(strings.api.product.console_product_delete_error, error);
 
         if (error instanceof ZodError)
             return generateResponseError({
-                message: ApiStrings.invalidIdMessage,
+                message: strings.api.common.invalid_id_message,
             });
 
         if (error instanceof NotFoundError)
             return generateResponseError({ message: error.message });
 
         return generateResponseError({
-            message: ApiStrings.productDeleteErrorMessage,
+            message: strings.api.product.product_delete_error_message,
         });
     }
 }

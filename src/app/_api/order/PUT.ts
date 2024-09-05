@@ -1,11 +1,11 @@
-import ApiStrings from "@/app/_api/ApiStrings";
+import strings from "@/lib/strings";
 import NotFoundError from "@/lib/NotFoundError";
 import { generateResponseError } from "@/lib/utils";
 import OrderRepository from "@/models/OrderRepository";
-import { OrderSchema } from "@/services/OrderSchema";
+import { OrderSchema } from "@/services/schemas/OrderSchema";
 import { ZodError } from "zod";
 import { NextRequest } from "next/server";
-import MySQLOrderRepository from "@/services/MySQLOrderRepository";
+import MySQLOrderRepository from "@/services/repositories/MySQLOrderRepository";
 
 export async function PUT(request: NextRequest) {
     try {
@@ -19,18 +19,18 @@ export async function PUT(request: NextRequest) {
 
         return Response.json(validatedOrder);
     } catch (error) {
-        console.error(ApiStrings.consoleOrderPutError, error);
+        console.error(strings.api.order.console_order_put_error, error);
 
         if (error instanceof ZodError)
             return generateResponseError({
-                message: ApiStrings.invalidFieldsMessage,
+                message: strings.api.common.invalid_fields_message,
             });
 
         if (error instanceof NotFoundError)
             return generateResponseError({ message: error.message });
 
         return generateResponseError({
-            message: ApiStrings.orderUpdateErrorMessage,
+            message: strings.api.order.order_update_error_message,
         });
     }
 }

@@ -1,7 +1,7 @@
-import ApiStrings from "@/app/_api/ApiStrings";
+import strings from "@/lib/strings";
 import { generateResponseError } from "@/lib/utils";
 import ProductRepository from "@/models/ProductRepository";
-import MySQLProductRepository from "@/services/MySQLProductRepository";
+import MySQLProductRepository from "@/services/repositories/MySQLProductRepository";
 
 export async function GET() {
     try {
@@ -10,9 +10,12 @@ export async function GET() {
         const list = await productRepository.getList();
         return Response.json(list);
     } catch (error) {
-        console.error(ApiStrings.consoleProductListFetchError, error);
+        console.error(
+            strings.api.product.console_product_list_fetch_error,
+            error,
+        );
         return generateResponseError({
-            message: ApiStrings.productListFetchErrorMessage,
+            message: strings.api.product.product_list_fetch_error_message,
         });
     }
 }
