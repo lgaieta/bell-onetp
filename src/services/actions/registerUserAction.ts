@@ -2,11 +2,14 @@
 import { RegisterFormState } from "@/components/register/RegisterForm";
 import AlreadyExistsError from "@/lib/AlreadyExistsError";
 import strings from "@/lib/strings";
-import MySQLUserRepository from "@/services/MySQLUserRepository";
 import PasswordEncrypter from "@/services/PasswordEncrypter";
+import MySQLUserRepository from "@/services/repositories/MySQLUserRepository";
+import {
+    UserUsernameSchema,
+    UserPasswordSchema,
+} from "@/services/schemas/UserSchema";
 import SessionManager from "@/services/SessionManager";
 import { SessionType } from "@/services/SessionPayload";
-import { UserUsernameSchema, UserPasswordSchema } from "@/services/UserSchema";
 import { redirect } from "next/navigation";
 
 export async function registerUserAction(
