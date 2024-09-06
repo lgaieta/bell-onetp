@@ -4,6 +4,8 @@ import crypto from "crypto";
 import MySQLOrderRepository from "@/services/repositories/MySQLOrderRepository";
 import OrderState from "@/models/OrderState";
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
+import { CART_COOKIE_NAME } from "@/lib/constants";
 
 const client = new MercadoPagoConfig({
     accessToken: process.env.MPAGO_ACCESS_TOKEN!,
@@ -63,21 +65,18 @@ export async function POST(request: NextRequest) {
 
     const payment = await new Payment(client).get({ id: body.data.id });
 
-    console.log(payment.transaction_amount);
-
-    console.log(payment);
-
-    const orderRepository = new MySQLOrderRepository();
-    await orderRepository.update({
-        id: +20,
-        username: "",
-        totalPrice: payment.transaction_amount!,
-        creationTime: new Date(),
-        operationState: OrderState.Processed,
-        products: {},
-    });
+    // const orderRepository = new MySQLOrderRepository();
+    // await orderRepository.update({
+    //     id: +20,
+    //     username: "",
+    //     totalPrice: payment.transaction_amount!,
+    //     creationTime: new Date(),
+    //     operationState: OrderState.Processed,
+    //     products: {},
+    // });
 
     revalidatePath("/compras");
+    cookies().set(CART_COOKIE_NAME, "{}");
 
     return Response.json({ success: true });
 }

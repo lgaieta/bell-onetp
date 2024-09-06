@@ -13,7 +13,7 @@ import HeaderUserButton, {
 
 const links = [
     ["/productos", "Productos"],
-    ["/", "Sobre nosotros"],
+    ["/sobre-nosotros", "Sobre nosotros"],
 ];
 
 async function ClientHeader() {
