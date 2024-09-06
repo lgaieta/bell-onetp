@@ -30,7 +30,7 @@ function DefaultHeader() {
                         className="text-foreground font-normal"
                         key="sobre-nosotros"
                     >
-                        <Link href="/">Sobre nosotros</Link>
+                        <Link href="/sobre-nosotros">Sobre nosotros</Link>
                     </Button>
                 </nav>
                 <div className="hidden md:flex gap-2 justify-end w-full">
@@ -73,7 +73,9 @@ function DefaultHeader() {
                                     asChild
                                     className="text-foreground w-full"
                                 >
-                                    <Link href="/">Sobre nosotros</Link>
+                                    <Link href="/sobre-nosotros">
+                                        Sobre nosotros
+                                    </Link>
                                 </Button>
                             </SheetClose>
                             <div className="flex flex-col gap-2">
