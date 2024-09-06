@@ -55,7 +55,9 @@ function LoginForm() {
                 <p className="text-sm text-destructive">{errors.general}</p>
             )}
             <Button variant="link" className="w-full text-blue-600" asChild>
-                <Link href="/crear-cuenta">No tengo cuenta</Link>
+                <Link href="/crear-cuenta">
+                    ¿No tenés cuenta? Creá una acá.
+                </Link>
             </Button>
         </form>
     );
