@@ -14,6 +14,7 @@ import { SessionType } from "@/services/SessionPayload";
 import { redirect } from "next/navigation";
 
 export async function loginAction(
+    pay: boolean = false,
     _: LoginFormState,
     formData: FormData,
     userRepository: UserRepository = new MySQLUserRepository(),
@@ -95,5 +96,6 @@ export async function loginAction(
             },
         };
     }
+    if (pay) redirect("/carrito?pay=true");
     redirect("/");
 }

@@ -1,31 +1,8 @@
 "use client";
 
-import { MdDelete } from "react-icons/md";
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import Product from "@/models/Product";
-import { Button } from "@/components/ui/button";
-import {
-    Card,
-    CardHeader,
-    CardTitle,
-    CardContent,
-    CardFooter,
-} from "@/components/ui/card";
-import Link from "next/link";
-import ProductItem from "@/components/ui/product-item";
 import CartSummary from "@/components/cart/CartSummary";
 import { useEffect, useState } from "react";
-import CartProductsRemoveButton from "@/components/cart/CartProductsRemoveButton";
 import CartProducts from "@/components/cart/CartProducts";
 import { editCartProducts } from "@/services/actions/editCartProducts";
 
@@ -48,7 +25,7 @@ function CartPage(props: CartPageProps) {
     };
 
     return (
-        <main className="flex w-full flex-col gap-16 items-center py-8 container">
+        <main className="flex w-full flex-col gap-16 items-center py-16 container">
             <header>
                 <h1 className="text-2xl font-bold sm:text-4xl">
                     Carrito de compras

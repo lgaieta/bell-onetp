@@ -78,25 +78,30 @@ class MySQLOrderRepository implements OrderRepository {
     async update(newOrder: Order): Promise<Order> {
         const sql =
             "UPDATE orders SET total_price = ?, operation_state = ? WHERE idorder = ?";
+        console.log("order id: ", newOrder.id);
         const [result] = await MySQLPool.query<ResultSetHeader>(sql, [
             newOrder.totalPrice,
             newOrder.operationState,
             newOrder.id,
         ]);
 
-        const relationshipValues = Object.entries(newOrder.products).map(
-            ([key, value]) => {
-                return `(${newOrder.id}, ${MySQLPool.escape(
-                    key,
-                )}, ${MySQLPool.escape(value)})`;
-            },
-        );
+        console.log(result.affectedRows);
 
-        const relSql =
-            "INSERT INTO orders_has_product (orders_idorder, product_idproduct, amount_prod) VALUES " +
-            relationshipValues.join(",") +
-            " ON DUPLICATE KEY UPDATE orders_idorder=VALUES(orders_idorder), product_idproduct = VALUES(product_idproduct), amount_prod = VALUES(amount_prod)";
-        await MySQLPool.query<ResultSetHeader>(relSql);
+        if (Object.keys(newOrder.products).length > 0) {
+            const relationshipValues = Object.entries(newOrder.products).map(
+                ([key, value]) => {
+                    return `(${newOrder.id}, ${MySQLPool.escape(
+                        key,
+                    )}, ${MySQLPool.escape(value)})`;
+                },
+            );
+
+            const relSql =
+                "INSERT INTO orders_has_product (orders_idorder, product_idproduct, amount_prod) VALUES " +
+                relationshipValues.join(",") +
+                " ON DUPLICATE KEY UPDATE SET orders_idorder=VALUES(orders_idorder), product_idproduct = VALUES(product_idproduct), amount_prod = VALUES(amount_prod)";
+            await MySQLPool.query<ResultSetHeader>(relSql);
+        }
 
         return newOrder;
     }

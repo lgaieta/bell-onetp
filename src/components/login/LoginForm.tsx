@@ -4,11 +4,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginAction } from "@/services/actions/loginAction";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
 
 function LoginForm() {
+    const searchParams = useSearchParams();
+    const pay = searchParams.get("pay");
     const [state, formAction] = useFormState<LoginFormState, FormData>(
-        loginAction,
+        loginAction.bind(null, !!pay),
         {
             errors: {},
         },

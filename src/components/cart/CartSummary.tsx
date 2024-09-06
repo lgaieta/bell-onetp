@@ -1,5 +1,5 @@
 import { ProductsListWithAmount } from "@/components/cart/CartPage";
-import { Button } from "@/components/ui/button";
+import CartPaymentButton from "@/components/cart/CartPaymentButton";
 import {
     Card,
     CardHeader,
@@ -56,8 +56,7 @@ function CartSummary({ products }: { products: ProductsListWithAmount }) {
                     )}
                 </CardContent>
                 <CardFooter className="flex justify-center">
-                    <Button className="w-full">Comenzar la compra</Button>
-                    {/* <CartPaymentButton products={products} /> */}
+                    <CartPaymentButton products={products} />
                 </CardFooter>
             </Card>
         </div>

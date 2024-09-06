@@ -3,6 +3,7 @@ import { MdOutlineSportsGymnastics } from "react-icons/md";
 import { MdOutlineStar } from "react-icons/md";
 import { FaHandHoldingHeart } from "react-icons/fa";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HomePage() {
     return (
@@ -32,7 +33,9 @@ export default function HomePage() {
                                 </p>
                             </div>
                             <div className="space-x-4">
-                                <Button size={"lg"}>Comprar Ahora</Button>
+                                <Button size={"lg"} asChild>
+                                    <Link href="/productos">Comprar Ahora</Link>
+                                </Button>
                             </div>
                         </div>
                     </div>
