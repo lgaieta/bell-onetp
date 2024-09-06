@@ -62,7 +62,7 @@ export async function loginAction(
             };
         }
 
-        const passwordValid = passwordEncrypter.compare(
+        const passwordValid = await passwordEncrypter.compare(
             validatedPassword.data,
             savedUser.password,
         );
@@ -70,7 +70,7 @@ export async function loginAction(
         if (!passwordValid) {
             return {
                 errors: {
-                    password: strings.user.login.invalid_credentials,
+                    general: strings.user.login.invalid_credentials,
                 },
             };
         }
