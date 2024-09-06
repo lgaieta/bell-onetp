@@ -52,7 +52,9 @@ function LoginForm() {
             </div>
             <SubmitButton />
             {errors.general && (
-                <p className="text-sm text-destructive">{errors.general}</p>
+                <p className="text-sm text-destructive w-full text-center">
+                    {errors.general}
+                </p>
             )}
             <Button variant="link" className="w-full text-blue-600" asChild>
                 <Link href="/crear-cuenta">
