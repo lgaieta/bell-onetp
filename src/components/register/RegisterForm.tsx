@@ -4,6 +4,7 @@ import { registerUserAction } from "@/services/actions/registerUserAction";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useFormState, useFormStatus } from "react-dom";
+import Link from "next/link";
 
 function RegisterForm() {
     const [state, formAction] = useFormState<RegisterFormState, FormData>(
@@ -26,6 +27,9 @@ function RegisterForm() {
                     maxLength={16}
                     required
                 />
+                <p className="text-sm text-muted-foreground">
+                    Debe contener al menos 6 caracteres.
+                </p>
                 {errors?.username && (
                     <p className="text-sm text-destructive">
                         {errors.username}
@@ -43,6 +47,9 @@ function RegisterForm() {
                     maxLength={65}
                     type="password"
                 />
+                <p className="text-sm text-muted-foreground">
+                    Debe contener al menos 8 caracteres.
+                </p>
                 {errors?.password && (
                     <p className="text-sm text-destructive">
                         {errors.password}
@@ -53,6 +60,11 @@ function RegisterForm() {
             {errors?.general && (
                 <p className="text-sm text-destructive">{errors.general}</p>
             )}
+            <Button variant="link" className="w-full text-blue-600" asChild>
+                <Link href="/iniciar-sesion">
+                    ¿Ya tenés cuenta? Iniciá sesión acá.
+                </Link>
+            </Button>
         </form>
     );
 }
