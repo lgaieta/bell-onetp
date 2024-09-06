@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import { deleteProductAction } from "@/services/actions/deleteProductAction";
+import RemoveProductButton from "@/components/products-admin/RemoveProductButton";
 
 type ProductsAdminPageProps = {
     products: Product[];
-    onDeleteProductAction: (id: Product["id"], formData: FormData) => void;
 };
 
 async function ProductsAdminPage(props: ProductsAdminPageProps) {
@@ -67,23 +67,7 @@ async function ProductsAdminPage(props: ProductsAdminPageProps) {
                                             <MdEdit size={24} />
                                         </Link>
                                     </Button>
-                                    <form
-                                        action={deleteProductAction.bind(
-                                            null,
-                                            product.id,
-                                        )}
-                                    >
-                                        <Button
-                                            type="submit"
-                                            size="icon"
-                                            variant="outline"
-                                        >
-                                            <MdDelete
-                                                className="text-destructive"
-                                                size={24}
-                                            />
-                                        </Button>
-                                    </form>
+                                    <RemoveProductButton productId={product.id}  />
                                 </TableCell>
                             </TableRow>
                         ))}
