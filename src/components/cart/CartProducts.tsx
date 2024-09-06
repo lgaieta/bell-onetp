@@ -28,7 +28,7 @@ function CartProducts(props: CartProductsProps) {
     };
 
     return (
-        <Card className="flex justify-center w-full rounded-xl bg-muted/40 md:col-span-2 p-6 md:p-16">
+        <Card className="flex justify-center w-full rounded-xl md:col-span-2 p-6 md:p-16">
             {props.products.length > 0 ? (
                 <div className="flex flex-col gap-6 w-full">
                     {props.products.map((product) => (
@@ -60,7 +60,7 @@ function CartProducts(props: CartProductsProps) {
             ) : (
                 <div className="flex flex-col gap-8 justify-center items-center w-full text-center">
                     <p>Parece que no hay ningun producto en tu carrito.</p>
-                    <Button asChild>
+                    <Button variant={"secondary"} asChild>
                         <Link href="/productos">Ir a productos</Link>
                     </Button>
                 </div>
