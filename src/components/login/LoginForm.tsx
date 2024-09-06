@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginAction } from "@/services/actions/loginAction";
+import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
 
 function LoginForm() {
@@ -53,6 +54,9 @@ function LoginForm() {
             {errors.general && (
                 <p className="text-sm text-destructive">{errors.general}</p>
             )}
+            <Button variant="link" className="w-full text-blue-600" asChild>
+                <Link href="/crear-cuenta">No tengo cuenta</Link>
+            </Button>
         </form>
     );
 }
