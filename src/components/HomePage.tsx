@@ -2,21 +2,31 @@ import { Button } from "@/components/ui/button";
 import { MdOutlineSportsGymnastics } from "react-icons/md";
 import { MdOutlineStar } from "react-icons/md";
 import { FaHandHoldingHeart } from "react-icons/fa";
+import Image from "next/image";
 
 export default function HomePage() {
     return (
         <div className="flex flex-col min-h-screen">
             <main className="flex-1">
-                <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
-                    <div className="container px-4 md:px-6">
+                <section className="flex flex-col justify-end md:justify-center relative w-full py-12 md:py-24 lg:py-32 xl:py-48 min-h-[700px]">
+                    <Image
+                        className="absolute inset-0 w-full h-full object-cover -z-20"
+                        src={"/home4-min.webp"}
+                        alt=""
+                        priority={true}
+                        width={1920}
+                        height={1080}
+                    />
+                    <div className="absolute inset-0 bg-foreground opacity-70 -z-10"></div>
+                    <div className="container h-full px-4 md:px-6">
                         <div className="flex flex-col items-center space-y-8 text-center">
-                            <div className="space-y-8">
-                                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                                    Equipate para la victoria
+                            <div className="space-y-8 dark">
+                                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">
+                                    Equipate para disfrutar
                                 </h1>
-                                <p className="mx-auto max-w-[700px] text-muted-foreground text-balance md:text-lg">
+                                <p className="mx-auto max-w-[700px] text-foreground/90 text-balance md:text-lg">
                                     Descubrí equipamiento deportivo de alta
-                                    calidad para elevar tu juego. Desde
+                                    calidad para elevar tu experiencia. Desde
                                     principiantes hasta profesionales, tenemos
                                     todo lo que necesitás.
                                 </p>
