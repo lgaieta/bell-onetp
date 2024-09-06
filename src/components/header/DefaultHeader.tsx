@@ -78,7 +78,17 @@ function DefaultHeader() {
                                     </Link>
                                 </Button>
                             </SheetClose>
+
                             <div className="flex flex-col gap-2">
+                                <SheetClose asChild>
+                                    <Button
+                                        asChild
+                                        variant="link"
+                                        className=" text-foreground w-full"
+                                    >
+                                        <Link href="/carrito">Mi carrito</Link>
+                                    </Button>
+                                </SheetClose>
                                 <SheetClose asChild>
                                     <Button asChild variant="outline">
                                         <Link href="/iniciar-sesion">
