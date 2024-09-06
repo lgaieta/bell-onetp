@@ -1,5 +1,6 @@
 "use server";
 import { LoginFormState } from "@/components/login/LoginForm";
+import NotFoundError from "@/lib/NotFoundError";
 import strings from "@/lib/strings";
 import UserRepository from "@/models/UserRepository";
 import PasswordEncrypter from "@/services/PasswordEncrypter";
@@ -80,6 +81,14 @@ export async function loginAction(
         );
     } catch (error) {
         console.error("Error de inicio de sesión:", error);
+
+        if (error instanceof NotFoundError)
+            return {
+                errors: {
+                    general: "Usuario o contraseña incorrectos.",
+                },
+            };
+
         return {
             errors: {
                 general: strings.user.login.unexpected_error,

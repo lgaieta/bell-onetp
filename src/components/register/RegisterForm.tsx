@@ -26,6 +26,11 @@ function RegisterForm() {
                     maxLength={16}
                     required
                 />
+                {errors?.username && (
+                    <p className="text-sm text-destructive">
+                        {errors.username}
+                    </p>
+                )}
             </div>
             <div className="grid gap-2">
                 <Label htmlFor="password">Contraseña</Label>
@@ -37,6 +42,11 @@ function RegisterForm() {
                     minLength={8}
                     type="password"
                 />
+                {errors?.password && (
+                    <p className="text-sm text-destructive">
+                        {errors.password}
+                    </p>
+                )}
             </div>
             <Button type="submit">Crear</Button>
             {errors?.general && (
@@ -49,6 +59,8 @@ function RegisterForm() {
 export type RegisterFormState = {
     errors?: {
         general?: string;
+        username?: string;
+        password?: string;
     };
 } | void;
 

@@ -57,7 +57,7 @@ const esStrings = {
             unexpected_error: "Ocurrió un error inesperado.",
         },
         register: {
-            already_exists: "El usuario ya existe",
+            already_exists: "El usuario ya existe.",
         },
     },
     home: {
