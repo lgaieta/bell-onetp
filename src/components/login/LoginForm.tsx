@@ -21,8 +21,10 @@ function LoginForm() {
                 <Input
                     id="username"
                     name="username"
-                    placeholder="Por ejemplo: tellodev"
+                    placeholder="Por ejemplo: lgaieta"
                     className={errors.username && "border-destructive"}
+                    minLength={6}
+                    maxLength={16}
                 />
                 {errors.username && (
                     <p className="text-sm text-destructive">
@@ -37,6 +39,7 @@ function LoginForm() {
                     name="password"
                     placeholder="••••••••"
                     minLength={6}
+                    maxLength={65}
                     type="password"
                     className={errors.username && "border-destructive"}
                 />

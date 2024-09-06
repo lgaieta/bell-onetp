@@ -40,6 +40,7 @@ function RegisterForm() {
                     placeholder="••••••••"
                     required
                     minLength={8}
+                    maxLength={65}
                     type="password"
                 />
                 {errors?.password && (
