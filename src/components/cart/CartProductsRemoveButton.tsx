@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import Product from "@/models/Product";
 import { removeFromCartAction } from "@/services/actions/removeFromCartAction";
-import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 
 type CartProductsRemoveButtonProps = {
@@ -53,7 +52,7 @@ function CartProductsRemoveButton({
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
                     <form action={action}>
                         <AlertDialogAction
                             type="submit"
