@@ -2,22 +2,30 @@ import { z } from "zod";
 
 export const UserUsernameSchema = z
     .string()
-    .min(1, { message: "Username cannot be empty" })
-    .max(16, { message: "Username cannot exceed 16 characters" });
+    .trim()
+    .min(1, { message: "El nombre de usuario no puede estar vacío" })
+    .max(16, {
+        message: "El nombre de usuario no debe exceder los 16 caracteres",
+    });
 
 export const UserEmailSchema = z
     .string()
-    .email({ message: "Invalid email address" })
-    .max(255, { message: "Email cannot exceed 255 characters" });
+    .trim()
+    .email({ message: "Dirección de correo electrónico no válida" })
+    .max(255, {
+        message: "El correo electrónico no debe exceder los 255 caracteres",
+    });
 
 export const UserPasswordSchema = z
     .string()
-    .min(8, { message: "Password must be at least 8 characters long" })
-    .max(65, { message: "Password cannot exceed 65 characters" });
+    .trim()
+    .min(8, { message: "La contraseña debe tener al menos 8 caracteres" })
+    .max(65, { message: "La contraseña no debe exceder los 65 caracteres" });
 
 export const UserZipCodeSchema = z
     .string()
-    .max(45, { message: "CP cannot exceed 45 characters" });
+    .trim()
+    .max(45, { message: "El código postal no debe exceder los 45 caracteres" });
 
 export const UserSchema = z.object({
     username: UserUsernameSchema,
