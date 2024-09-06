@@ -1,10 +1,8 @@
 function AboutUsPage() {
     return (
-        <main className="container max-w-xl flex flex-col gap-12 py-16">
-            <h1 className="text-3xl md:text-4xl font-bold text-center">
-                Sobre nosotros
-            </h1>
-            <article className="flex flex-col gap-2 text-pretty">
+        <main className="container max-w-lg flex flex-col gap-12 py-16">
+            <h1 className="text-3xl md:text-4xl font-bold">Sobre nosotros</h1>
+            <article className="flex flex-col gap-2 text-balance">
                 <p>
                     En bell, nos apasiona el deporte y la aventura al aire
                     libre. Desde nuestros inicios, nos hemos comprometido a
