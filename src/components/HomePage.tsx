@@ -9,7 +9,7 @@ export default function HomePage() {
     return (
         <div className="flex flex-col min-h-screen">
             <main className="flex-1">
-                <section className="flex flex-col justify-end md:justify-center relative w-full py-12 md:py-24 lg:py-32 xl:py-48 min-h-[700px]">
+                <section className="flex flex-col justify-end md:justify-center relative w-full py-12 md:py-24 lg:py-32 xl:py-48 min-h-[600px] md:min-h-[90vh]">
                     <Image
                         className="absolute inset-0 w-full h-full object-cover -z-20"
                         src={"/home4-min.webp"}
