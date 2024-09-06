@@ -1,119 +1,76 @@
-import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { MdOutlineSportsGymnastics } from "react-icons/md";
+import { MdOutlineStar } from "react-icons/md";
+import { FaHandHoldingHeart } from "react-icons/fa";
 
-type HomePageProps = {};
-
-async function HomePage(props: HomePageProps) {
+export default function HomePage() {
     return (
-        <main className="flex flex-col justify-center w-full ">
-            <div className="bg-foreground py-32 px-4 text-white text-center ">
-                <h2 className="text-3xl font-semibold mb-4">
-                    Explora Nuestros Productos
-                </h2>
-                <p className="text-lg mb-6">
-                    Encuentra el equipo perfecto para tus aventuras al aire
-                    libre y disfruta de la naturaleza como nunca antes.
-                </p>
-                <Link
-                    href="/productos"
-                    className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600"
-                >
-                    Ver Productos
-                </Link>
-            </div>
-
-            <section className="text-foreground py-16 px-4">
-                <h2 className="text-3xl font-semibold text-center mb-8">
-                    ¿Por qué Elegirnos?
-                </h2>
-                <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div className="bg-background p-6 rounded-lg shadow-md">
-                        <h3 className="text-xl font-bold">Calidad Superior</h3>
-                        <p>
-                            Seleccionamos solo los mejores productos para
-                            garantizar tu satisfacción.
-                        </p>
+        <div className="flex flex-col min-h-screen">
+            <main className="flex-1">
+                <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+                    <div className="container px-4 md:px-6">
+                        <div className="flex flex-col items-center space-y-8 text-center">
+                            <div className="space-y-8">
+                                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                                    Equipate para la victoria
+                                </h1>
+                                <p className="mx-auto max-w-[700px] text-muted-foreground text-balance md:text-lg">
+                                    Descubrí equipamiento deportivo de alta
+                                    calidad para elevar tu juego. Desde
+                                    principiantes hasta profesionales, tenemos
+                                    todo lo que necesitás.
+                                </p>
+                            </div>
+                            <div className="space-x-4">
+                                <Button size={"lg"}>Comprar Ahora</Button>
+                            </div>
+                        </div>
                     </div>
-                    <div className="bg-background p-6 rounded-lg shadow-md">
-                        <h3 className="text-xl font-bold">
-                            Precios Competitivos
-                        </h3>
-                        <p>
-                            Ofrecemos las mejores ofertas para que puedas
-                            disfrutar sin gastar de más.
-                        </p>
-                    </div>
-                    <div className="bg-background p-6 rounded-lg shadow-md">
-                        <h3 className="text-xl font-bold">
-                            Envío Rápido y Gratuito
-                        </h3>
-                        <p>Recibe tu pedido en la puerta de tu casa.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section className="text-foreground py-16 px-4">
-                <h2 className="text-3xl font-semibold text-center mb-8">
-                    Lo Que Dicen Nuestros Clientes
-                </h2>
-                <blockquote className="max-w-4xl mx-auto text-center italic text-gray-600">
-                    “Excelente calidad y servicio. ¡Volveré a comprar!” -
-                    Cliente Satisfecho
-                </blockquote>
-                <blockquote className="max-w-4xl mx-auto text-center italic text-gray-600 mt-4">
-                    “Los mejores precios y envío rápido. Muy recomendable.” -
-                    Cliente Feliz
-                </blockquote>
-            </section>
-
-            <section className="py-16 px-4 bg-foreground text-white">
-                <h2 className="text-3xl font-semibold text-center mb-8">
-                    Sobre Nosotros
-                </h2>
-                <p className="max-w-4xl mx-auto text-center">
-                    Somos una tienda apasionada por el deporte y la aventura al
-                    aire libre. Nuestro objetivo es ofrecerte el mejor
-                    equipamiento para que disfrutes al máximo de tus
-                    actividades.
-                </p>
-            </section>
-
-            <section className="text-foreground py-16 px-4">
-                <h2 className="text-3xl font-semibold text-center mb-8">
-                    Preguntas Frecuentes
-                </h2>
-                <div className="max-w-4xl mx-auto">
-                    <div className="bg-transparent p-6 rounded-lg shadow mb-4">
-                        <h3 className="font-bold">
-                            ¿Hacen envíos internacionales?
-                        </h3>
-                        <p>
-                            No, actualmente solo realizamos envíos dentro del
-                            país.
-                        </p>
-                    </div>
-                    <div className="bg-transparent p-6 rounded-lg shadow mb-4">
-                        <h3 className="font-bold">
-                            ¿Cuál es su política de devoluciones?
-                        </h3>
-                        <p>
-                            Aceptamos devoluciones dentro de los 30 días
-                            posteriores a la compra.
-                        </p>
-                    </div>
-                    <div className="bg-transparent p-6 rounded-lg shadow mb-4">
-                        <h3 className="font-bold">
-                            ¿Cómo puedo realizar un pedido?
-                        </h3>
-                        <p>
-                            Para realizar un pedido, selecciona los productos
-                            que deseas y agrégales al carrito. Luego, sigue el
-                            proceso de pago para completar tu compra.
-                        </p>
-                    </div>
-                </div>
-            </section>
-        </main>
+                </section>
+                <section className="flex flex-col items-center justify-center bg-muted/50 text-foreground">
+                    <ul className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center justify-items-center gap-x-12 gap-y-20 px-4 py-36 sm:grid-cols-2 sm:items-start sm:px-6 lg:grid-cols-3 lg:px-8">
+                        <li className="flex max-w-xs flex-col items-center gap-3 text-center">
+                            <MdOutlineSportsGymnastics
+                                size={40}
+                                className="text-primary"
+                            />
+                            <p className="text-balance pt-2 text-lg font-bold">
+                                Aventura asegurada
+                            </p>
+                            <p className="text-balance">
+                                Productos diseñados para mejorar tu experiencia
+                                al aire libre, brindándote confort y seguridad
+                                en cada aventura.
+                            </p>
+                        </li>
+                        <li className="flex max-w-xs flex-col items-center gap-3 text-center">
+                            <MdOutlineStar size={40} className="text-primary" />
+                            <p className="text-balance pt-2 text-lg font-bold">
+                                Calidad garantizada
+                            </p>
+                            <p className="text-balance">
+                                Equipos fabricados con los más altos estándares
+                                para ofrecerte durabilidad y rendimiento en
+                                condiciones exigentes.
+                            </p>
+                        </li>
+                        <li className="col-auto flex max-w-xs flex-col items-center gap-3 text-center sm:col-span-2 lg:col-auto">
+                            <FaHandHoldingHeart
+                                size={40}
+                                className="text-primary"
+                            />
+                            <p className="text-balance pt-2 text-lg font-bold">
+                                Vos estás primero
+                            </p>
+                            <p className="text-balance">
+                                Sos nuestra prioridad en la marca, estamos
+                                dispuestos a responderte cualquier duda sin
+                                costo alguno.
+                            </p>
+                        </li>
+                    </ul>
+                </section>
+            </main>
+        </div>
     );
 }
-
-export default HomePage;

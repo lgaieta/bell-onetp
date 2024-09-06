@@ -8,7 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Inicio - bell - ONETP 2024",
+    title: "bell - ONETP 2024",
     description: "bell developers",
 };
 
