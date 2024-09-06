@@ -1,3 +1,4 @@
+import NotFoundError from "@/lib/NotFoundError";
 import Product from "@/models/Product";
 import ProductRepository from "@/models/ProductRepository";
 import MySQLPool from "@/services/repositories/MySQLPool";
@@ -7,7 +8,7 @@ export interface MySQLDBProduct extends RowDataPacket {
     idproduct: string;
     product_name: string;
     product_desc: string;
-    price: number;
+    price: string;
     stock: number;
 }
 
@@ -16,7 +17,7 @@ export function adaptProductMySQL(item: MySQLDBProduct): Product {
         id: item.idproduct,
         name: item.product_name,
         description: item.product_desc,
-        price: item.price,
+        price: parseFloat(item.price),
         stock: item.stock,
     };
 }
@@ -25,13 +26,21 @@ class MySQLProductRepository implements ProductRepository {
     async update(newProduct: Product): Promise<Product> {
         const sql =
             "UPDATE product SET product_name = ?, product_desc = ?, price = ?, stock = ? WHERE idproduct = ?";
-        await MySQLPool.query<ResultSetHeader>(sql, [
+
+        const [result] = await MySQLPool.query<ResultSetHeader>(sql, [
             newProduct.name,
             newProduct.description,
             newProduct.price,
             newProduct.stock,
             newProduct.id,
         ]);
+
+        if (result.affectedRows === 0) {
+            throw new NotFoundError(
+                `Product with ID ${newProduct.id} does not exist.`,
+            );
+        }
+
         return newProduct;
     }
 

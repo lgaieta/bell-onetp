@@ -1,4 +1,4 @@
-import EditProductPage from "@/components/EditProductPage";
+import EditProductPage from "@/components/edit-product/EditProductPage";
 import ProductRepository from "@/models/ProductRepository";
 import MySQLProductRepository from "@/services/repositories/MySQLProductRepository";
 import {
@@ -22,23 +22,5 @@ export default async function Page({ params }: { params: { id: string } }) {
     const productRepository: ProductRepository = new MySQLProductRepository();
     const product = await productRepository.getById(validatedId);
 
-    async function formAction(formData: FormData) {
-        "use server";
-        const data = Object.fromEntries(formData);
-
-        const validatedProduct = ProductSchema.parse({
-            id: validatedId,
-            name: data.name,
-            description: data.description,
-            price: +data.price,
-            stock: +data.stock,
-        });
-
-        const productRepository: ProductRepository =
-            new MySQLProductRepository();
-
-        await productRepository.update(validatedProduct);
-    }
-
-    return <EditProductPage product={product} formAction={formAction} />;
+    return <EditProductPage product={product} />;
 }
