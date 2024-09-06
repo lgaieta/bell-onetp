@@ -22,4 +22,6 @@ export async function createProductAction(formData: FormData) {
     const productRepository: ProductRepository = new MySQLProductRepository();
 
     await productRepository.create(validatedProduct);
+
+    redirect("/productos/admin");
 }
