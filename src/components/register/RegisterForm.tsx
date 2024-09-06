@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { registerUserAction } from "@/services/actions/registerUserAction";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 function RegisterForm() {
     const [state, formAction] = useFormState<RegisterFormState, FormData>(
@@ -49,11 +49,21 @@ function RegisterForm() {
                     </p>
                 )}
             </div>
-            <Button type="submit">Crear</Button>
+            <SubmitButton />
             {errors?.general && (
                 <p className="text-sm text-destructive">{errors.general}</p>
             )}
         </form>
+    );
+}
+
+function SubmitButton() {
+    const { pending } = useFormStatus();
+
+    return (
+        <Button type="submit" disabled={pending}>
+            {pending ? "Creando..." : "Crear"}
+        </Button>
     );
 }
 

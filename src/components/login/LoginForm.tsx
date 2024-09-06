@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginAction } from "@/services/actions/loginAction";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 function LoginForm() {
     const [state, formAction] = useFormState<LoginFormState, FormData>(
@@ -49,7 +49,7 @@ function LoginForm() {
                     </p>
                 )}
             </div>
-            <Button type="submit">Ingresar</Button>
+            <SubmitButton />
             {errors.general && (
                 <p className="text-sm text-destructive">{errors.general}</p>
             )}
@@ -64,5 +64,15 @@ export type LoginFormState = {
         password?: string;
     };
 };
+
+function SubmitButton() {
+    const { pending } = useFormStatus();
+
+    return (
+        <Button type="submit" disabled={pending}>
+            {pending ? "Ingresando..." : "Ingresar"}
+        </Button>
+    );
+}
 
 export default LoginForm;
